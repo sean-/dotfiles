@@ -1,0 +1,24 @@
+I use tcsh(1) for day-to-day use and then sh(1) for scripting. Most bash(1)
+enthusiasts don't have enough perspective to have an opinion worth listening
+to. New tcsh users, enjoy the up-arrow history, tab-completion for ssh hosts,
+`time long_command`, etc., ...
+
+Here's the walkthrough:
+
+	cd ~/src
+	git clone git@github.com:sean-/cshrc.git
+	cd cshrc
+
+To INSTALL:
+
+	% less .cshrc     # _Always_ review changes to your shell config
+	% mv .cshrc ~/    # Install the configured tcsh(1) hotness
+	% exec /bin/tcsh  # Start using tcsh(1)
+	% chsh /bin/tcsh  # Change your default shell once you feel comfortable
+
+To UPGRADE:
+
+	% cd ~/src/cshrc
+	% git pull
+	% diff -u .cshrc ~/.cshrc
+	% cp .cshrc ~/.cshrc
