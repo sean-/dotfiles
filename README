@@ -3,21 +3,23 @@ enthusiasts don't have enough perspective to have an opinion worth listening
 to. New tcsh users, enjoy the up-arrow history, tab-completion for ssh hosts,
 `time long_command`, etc., ...
 
-Here's the walkthrough:
+Here's the walk through.
 
-	cd ~/src
-	git clone git@github.com:sean-/cshrc.git
-	cd cshrc
+One-off install:
+	% curl -o ~/.cshrc https://github.com/sean-/cshrc/raw/master/.cshrc
+
+To track changes:
+	% cd ~/src
+	% git clone git@github.com:sean-/cshrc.git
+	% cd cshrc
 
 To INSTALL:
-
 	% less .cshrc     # _Always_ review changes to your shell config
 	% mv .cshrc ~/    # Install the configured tcsh(1) hotness
 	% exec /bin/tcsh  # Start using tcsh(1)
 	% chsh /bin/tcsh  # Change your default shell once you feel comfortable
 
 To UPGRADE:
-
 	% cd ~/src/cshrc
 	% git pull
 	% diff -u .cshrc ~/.cshrc
