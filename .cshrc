@@ -189,8 +189,65 @@ endif
 setenv SVN_EDITOR vi
 setenv CVS_RSH ssh
 
-# For tcsh's builtin ls command, ls-F
-setenv LS_COLORS 'no=00:fi=00:di=01;37:ln=01;36:pi=40;33:so=40;33:bd=40;33:cd=40;33:ex=01;32:*.sh=01;32:*.pl=01;32:*.bin=01;32:*.class=01;32:*.php=01;32:*.php3=01;32:*.js=01;32:*.tar=01;31:*.tgz=01;31:*.rpm=01;31:*.deb=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:*.bz2=01;31:*.rar=01;31:*.pkg=01;31:*.jpg=35:*.jpeg=35:*.gif=35:*.png=35:*.bmp=35:*.xbm=35:*.xpm=35:*.pm=35:*.xwd=35:*.pic=35:*.mp3=35:*.xcf=35:*.rm=35:*.avi=35:*.flac=35:*.ogg=35:*.mpg=35:*.wav=35:*.mpeg=35:*.ps=34:*.pdf=34:*.rtf=34:*.html=34:*.htm=34:*.xls=34:*.gnumeric=34:*.abw=34:*.tex=34:*.txt=34:*.doc=34:*.c=33:*.h=33:*.java=33:*.cc=33:*.hh=33:'
+# For tcsh's builtin ls command, ls-F. See LS_COLORS in tcsh(1) for details.
+set noglob
+set base_colors = 'no=00:fi=00:di=01;34:or=05:41:ln=01;36:pi=40;33:so=40;33:bd=40;33:cd=40;33:ex=01;32'
+# Executable scripts
+set lsexts = (js lua php pl py rb sh)
+set lscolor = '00;32'
+foreach lsext (${lsexts})
+    set base_colors = "${base_colors}:*.${lsext}=${lscolor}"
+end
+
+# Source files
+set lsexts = (c cc cpp h hh java js lua php pl pm rb sh)
+set lscolor = '00;33'
+foreach lsext (${lsexts})
+    set base_colors = "${base_colors}:*.${lsext}=${lscolor}"
+end
+
+# Archive files
+set lsexts = (arj bz2 class deb gz pkg rar rpm tar tgz xz z zip Z)
+set lscolor = '00;31'
+foreach lsext (${lsexts})
+    set base_colors = "${base_colors}:*.${lsext}=${lscolor}"
+end
+
+# Audio files
+set lsexts = (mp3 mp4a ogg wav)
+set lscolor = '00;33'
+foreach lsext (${lsexts})
+    set base_colors = "${base_colors}:*.${lsext}=${lscolor}"
+end
+
+# Image files
+set lsexts = (bmp gif jpeg jpg pic png xbm xcf xpm xwd)
+set lscolor = '00;35'
+foreach lsext (${lsexts})
+    set base_colors = "${base_colors}:*.${lsext}=${lscolor}"
+end
+
+# Video files
+set lsexts = (avi flac mpeg mpg)
+set lscolor = '00;36'
+foreach lsext (${lsexts})
+    set base_colors = "${base_colors}:*.${lsext}=${lscolor}"
+end
+
+# Doc files
+set lsexts = (abw doc gnumeric htm html pdf ps rtf tex txt xls)
+set lscolor = '01;37'
+foreach lsext (${lsexts})
+    set base_colors = "${base_colors}:*.${lsext}=${lscolor}"
+end
+
+# tcsh(1)'s colors
+setenv LS_COLORS "${base_colors}"
+# ls(1)'s colors
+setenv LSCOLORS 'exfxcxdxbxegedabagacad'
+unset base_colors
+unset lsexts
+unset lscolor
 set color = (ls-F)
 alias ls "ls-F"
 
