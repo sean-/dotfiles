@@ -98,7 +98,7 @@ alias kscp scp -o GSSAPIAuthentication=yes -o GSSAPIDelegateCredentials=yes
 alias kssh ssh -o GSSAPIAuthentication=yes -o GSSAPIDelegateCredentials=yes
 
 # Change the behavior of the shell/environment based on the current
-# directory. The "-P22 file == '0'" bits check to make sure group and other
+# directory. The "-P22: file == '0'" bits check to make sure group and other
 # don't have write perms. -o = we're the owner. To test this out:
 #
 # echo 'echo Entering src! at $PWD' >> src/.enter.tcsh
@@ -109,11 +109,15 @@ alias kssh ssh -o GSSAPIAuthentication=yes -o GSSAPIDelegateCredentials=yes
 # cd ..
 # env | grep SRC_ENV
 #
-# Very handy.
-alias cwdcmd 'if (-o .enter.tcsh && -P22 .enter.tcsh == "0") source .enter.tcsh'
-alias popd 'if ("\!*" == "" && -o .exit.tcsh && -P22 .exit.tcsh == "0") source .exit.tcsh; ""popd \!*'
-alias cd 'if (-o .exit.tcsh && -P22 .exit.tcsh == "0") source .exit.tcsh; chdir \!*'
-alias pushd 'if (-o .exit.tcsh && -P22 .exit.tcsh == "0") source .exit.tcsh; ""pushd \!*'
+# Use the `filetest` builtin to test the various 'File inquiry operators'
+# listed in tcsh(1). Very handy. E.g.
+#
+# % filetest -P77: /tmp/tmp.${USER}
+# % filetest -P22: .enter.tcsh
+alias cwdcmd 'if (-o .enter.tcsh && -P22: .enter.tcsh == "0") source .enter.tcsh'
+alias popd 'if ("\!*" == "" && -o .exit.tcsh && -P22: .exit.tcsh == "0") source .exit.tcsh; ""popd \!*'
+alias cd 'if (-o .exit.tcsh && -P22: .exit.tcsh == "0") source .exit.tcsh; chdir \!*'
+alias pushd 'if (-o .exit.tcsh && -P22: .exit.tcsh == "0") source .exit.tcsh; ""pushd \!*'
 
 
 
@@ -140,11 +144,11 @@ set listjobs = long
 # not use ~/tmp/ for sensitive material that needs to be securely deleted via
 # `rm -P`, shred(1) or srm(1).
 /bin/mkdir -pm 0700 /tmp/tmp.${USER}
-if ( -o /tmp/tmp.${USER} && -P0077 /tmp/tmp.${USER} == "0" ) then
+if ( -o /tmp/tmp.${USER} && -P77: /tmp/tmp.${USER} == "0" ) then
   if ( ! -l ~/tmp ) /bin/ln -sf /tmp/tmp.${USER} ~/tmp
 endif
 # Check to make sure someone didn't exploit a race condition
-if ( ! -o /tmp/tmp.${USER} || ! -P0077 /tmp/tmp.${USER} == "0" ) then
+if ( ! -o /tmp/tmp.${USER} || ! -P77: /tmp/tmp.${USER} == "0" ) then
   /bin/rm -f ~/tmp
   echo "DANGER! DANGER! DANGER! Someone changed the mask or user of /tmp/tmp.${USER} during login! Removed ~/tmp shortcut as a precaution. Be careful on this system. You have been warned."
 endif
@@ -170,7 +174,7 @@ set time=(8 "\
 Time spent in user mode   (CPU seconds) : %Us\
 Time spent in kernel mode (CPU seconds) : %Ss\
 Total time                              : %Es\
-CPU utilisation (percentage)            : %P\
+CPU utilization (percentage)            : %P\
 Times the process was swapped           : %W\
 Times of major page faults              : %F\
 Times of minor page faults              : %R")
@@ -382,8 +386,8 @@ unset noglob
 # update it periodically via:
 #
 # fetch -o ~/.cshrc https://github.com/sean-/flask-skeleton/raw/master/.cshrc
-if (-o .tcsh.site && -P22 .tcsh.site == "0") source .tcsh.site
-if (-o .tcsh.local && -P22 .tcsh.local == "0") source .tcsh.local
+if (-o .tcsh.site && -P22: .tcsh.site == "0") source .tcsh.site
+if (-o .tcsh.local && -P22: .tcsh.local == "0") source .tcsh.local
 
 end:
     onintr
