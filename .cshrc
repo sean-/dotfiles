@@ -115,6 +115,19 @@ alias kssh ssh -o GSSAPIAuthentication=yes -o GSSAPIDelegateCredentials=yes
 #
 # % filetest -P77: /tmp/tmp.${USER}
 # % filetest -P22: .enter.tcsh
+#
+# If you want to receive a prompt by default (more secure but more irritating
+# if you work in highly controlled environments), add the following
+# uncommented version to your ~/.tcsh.local :
+#
+# alias cwdcmd 'if ( -o .enter.tcsh && -P22: .enter.tcsh == "0" ) then\
+#   printf "Do you want to run %s/.enter.tcsh [y/(n)]: \n" $PWD\
+#   set answer = $<\
+#   if ( ${answer} == 'y' ) source .enter.tcsh\
+# endif'
+#
+# The alias 'find.tcsh-sourced' is useful for identifying potential scripts
+# that will be automatically sourced.
 alias cwdcmd 'if (-o .enter.tcsh && -P22: .enter.tcsh == "0") source .enter.tcsh'
 alias popd 'if ("\!*" == "" && -o .exit.tcsh && -P22: .exit.tcsh == "0") source .exit.tcsh; ""popd \!*'
 alias cd 'if (-o .exit.tcsh && -P22: .exit.tcsh == "0") source .exit.tcsh; chdir \!*'
