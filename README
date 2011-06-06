@@ -31,11 +31,17 @@ New tcsh users, the biggest set of "new features" are:
 
 *) "Up-arrow" searching through history
 
-   cat /etc/resolv.conf    # Push something in to your history
-   cd ~/                   # Execute a different command
-   ca[up-arrow]            # Have the "up-arrow" search through all history
-						   # entries that begin with "ca"
-   cat /etc/resolv.conf    # A great time saver
+   cat /etc/resolv.conf     # Push a command in to your history
+   cp /etc/resolv.conf /tmp # A filler command in your history
+   cat /etc/group           # Add another cat(1) command
+   cd ~/                    # Another filler command
+   cat /tmp/resolv.conf     # Yet add another cat(1) command
+   echo Use printf instead  # Yet another filler command
+   ca[up-arrow]             # From here, you can use the up and down arrows
+   # to search through your entire history for entries that begin with "ca",
+   # specifically you'll see all three "cat /" commands (if not more,
+   # depending on your history). You can increase the specificity and have it
+   # search for `cat /etc` vs `cat /tmp`, too. Very, very useful.
 
 *) Tab-completion of ssh hosts. e.g.
 
