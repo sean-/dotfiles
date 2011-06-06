@@ -170,7 +170,7 @@ set time=(8 "\
 Time spent in user mode   (CPU seconds) : %Us\
 Time spent in kernel mode (CPU seconds) : %Ss\
 Total time                              : %Es\
-CPU utilisation (percentage)            : %P\
+CPU utilization (percentage)            : %P\
 Times the process was swapped           : %W\
 Times of major page faults              : %F\
 Times of minor page faults              : %R")
