@@ -363,6 +363,11 @@ complete unsetenv 'p/1/e/'
 complete where p/1/c/
 complete which p/*/c/
 
+# Automatically set a DISPLAY if appropriate
+if( $?REMOTEHOST && ! $?DISPLAY ) then
+    setenv DISPLAY ${REMOTEHOST}:0
+endif 
+
 # Host-specific completion bits
 switch ( $OSTYPE )
 case "darwin*":
