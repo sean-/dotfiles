@@ -41,7 +41,17 @@ New tcsh users, the biggest set of "new features" are:
    # to search through your entire history for entries that begin with "ca",
    # specifically you'll see all three "cat /" commands (if not more,
    # depending on your history). You can increase the specificity and have it
-   # search for `cat /etc` vs `cat /tmp`, too. Very, very useful.
+   # search for `cat /etc` vs `cat /tmp`, too. Very, very useful. Another
+   # example:
+   #
+   # % git flow hotfix start better_uparrow_example
+   # % [ Do a series of commands and commits]
+   # % git f[up-arrow]
+   # % git flow hotfix start better_uparrow_example
+   # % [Use the back arrow to change start to finish]
+   # % git flow hotfix finish better_uparrow_example
+
+   The utility of this simple mechanism can't be understated.
 
 *) Tab-completion of ssh hosts. e.g.
 
