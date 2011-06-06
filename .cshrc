@@ -89,6 +89,7 @@ endsw
 alias rm rm -i
 alias cp cp -i
 alias mv mv -i
+alias find.tcsh-sourced find . -type f -a \\\( -name '.enter.tcsh' -o -name '.exit.tcsh' -o -name '.site.tcsh' -o -name '.local.tcsh' \\\)
 alias fs fossil
 alias emacs emacs --no-splash
 alias dmalloc 'eval `\dmalloc -C \!*`'
@@ -386,8 +387,8 @@ unset noglob
 # update it periodically via:
 #
 # fetch -o ~/.cshrc https://github.com/sean-/flask-skeleton/raw/master/.cshrc
-if (-o .tcsh.site && -P22: .tcsh.site == "0") source .tcsh.site
-if (-o .tcsh.local && -P22: .tcsh.local == "0") source .tcsh.local
+if (-o .site.tcsh && -P22: .site.tcsh == "0") source .site.tcsh
+if (-o .local.tcsh && -P22: .local.tcsh == "0") source .local.tcsh
 
 end:
     onintr
