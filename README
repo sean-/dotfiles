@@ -7,24 +7,24 @@ New tcsh(1) users, scroll down for a list of immediately useful benefits.
 Installation walk-through:
 
 One-off install:
-	% curl -o ~/.cshrc https://github.com/sean-/cshrc/raw/master/.cshrc
+        curl -o ~/.cshrc https://github.com/sean-/cshrc/raw/master/.cshrc
 
 To track changes:
-	% cd ~/src
-	% git clone git@github.com:sean-/cshrc.git
-	% cd cshrc
+        cd ~/src
+        % git clone git@github.com:sean-/cshrc.git
+        % cd cshrc
 
 To INSTALL:
-	% less .cshrc     # _Always_ review changes to your shell config
-	% mv .cshrc ~/    # Install the configured tcsh(1) hotness
-	% exec /bin/tcsh  # Start using tcsh(1)
-	% chsh /bin/tcsh  # Change your default shell once you feel comfortable
+        % less .cshrc     # _Always_ review changes to your shell config
+        % mv .cshrc ~/    # Install the configured tcsh(1) hotness
+        % exec /bin/tcsh  # Start using tcsh(1)
+        % chsh /bin/tcsh  # Change your default shell once you feel comfortable
 
 To UPGRADE:
-	% cd ~/src/cshrc
-	% git pull
-	% diff -u .cshrc ~/.cshrc
-	% cp .cshrc ~/.cshrc
+        % cd ~/src/cshrc
+        % git pull
+        % diff -u .cshrc ~/.cshrc
+        % cp .cshrc ~/.cshrc
 
 
 New tcsh users, the biggest set of "new features" are:
