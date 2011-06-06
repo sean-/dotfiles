@@ -158,7 +158,7 @@ if ( -d ~/Mail/inbox/new/ ) then
 	set mail = ~/Mail/inbox/new/
 endif
 
-#set nobeep
+set nobeep
 set printexitvalue
 set promptchars = '%#'
 set prompt = "%T %B%n%b@%m %# %L"
