@@ -1,9 +1,10 @@
-I use tcsh(1) for day-to-day use and then sh(1) for scripting. Most bash(1)
-enthusiasts don't have enough perspective to have an opinion worth listening
-to. New tcsh users, enjoy the up-arrow history, tab-completion for ssh hosts,
-`time long_command`, etc., ...
+I use and recommend tcsh(1) for day-to-day use and then sh(1) for
+scripting. Most bash(1) use bash(1) because they've never questioned the use
+of the default shell shipped by Linux.
 
-Here's the walk through.
+New tcsh(1) users, scroll down for a list of immediately useful benefits.
+
+Installation walk-through:
 
 One-off install:
 	% curl -o ~/.cshrc https://github.com/sean-/cshrc/raw/master/.cshrc
@@ -24,3 +25,37 @@ To UPGRADE:
 	% git pull
 	% diff -u .cshrc ~/.cshrc
 	% cp .cshrc ~/.cshrc
+
+
+New tcsh users, the biggest set of "new features" are:
+
+*) "Up-arrow" searching through history
+
+   cat /etc/resolv.conf    # Push something in to your history
+   cd ~/                   # Execute a different command
+   ca[up-arrow]            # Have the "up-arrow" search through all history
+						   # entries that begin with "ca"
+   cat /etc/resolv.conf    # A great time saver
+
+*) Tab-completion of ssh hosts. e.g.
+
+   % ssh host1[TAB]           # Yields the following:
+   % ssh host01.example.com
+
+*) Useful time information. e.g.:
+
+   % time sudo port install py27-ipython
+   Time spent in user mode   (CPU seconds) : 6.795s
+   Time spent in kernel mode (CPU seconds) : 5.118s
+   Total time                              : 0:31.25s
+   CPU utilization (percentage)            : 38.0%
+   Times the process was swapped           : 0
+   Times of major page faults              : 0
+   Times of minor page faults              : 0
+
+*) Duplicates removed from history. Self-explanatory.
+
+*) Tab completion of arguments for programs (e.g. git(1), sysctl(1), gdb(1),
+   gcc(1), chown(1), ping(1), mtr(1), etc). See the 'complete' section for
+   more examples or to learn how to extend argument completion for additional
+   commands (feel free to suggest improvements).
