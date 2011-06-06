@@ -89,6 +89,7 @@ endsw
 alias rm rm -i
 alias cp cp -i
 alias mv mv -i
+alias find.tcsh-sourced find . -type f -a \\\( -name '.enter.tcsh' -o -name '.exit.tcsh' -o -name '.site.tcsh' -o -name '.local.tcsh' \\\)
 alias fs fossil
 alias emacs emacs --no-splash
 alias dmalloc 'eval `\dmalloc -C \!*`'
@@ -114,6 +115,19 @@ alias kssh ssh -o GSSAPIAuthentication=yes -o GSSAPIDelegateCredentials=yes
 #
 # % filetest -P77: /tmp/tmp.${USER}
 # % filetest -P22: .enter.tcsh
+#
+# If you want to receive a prompt by default (more secure but more irritating
+# if you work in highly controlled environments), add the following
+# uncommented version to your ~/.tcsh.local :
+#
+# alias cwdcmd 'if ( -o .enter.tcsh && -P22: .enter.tcsh == "0" ) then\
+#   printf "Do you want to run %s/.enter.tcsh [y/(n)]: \n" $PWD\
+#   set answer = $<\
+#   if ( ${answer} == 'y' ) source .enter.tcsh\
+# endif'
+#
+# The alias 'find.tcsh-sourced' is useful for identifying potential scripts
+# that will be automatically sourced.
 alias cwdcmd 'if (-o .enter.tcsh && -P22: .enter.tcsh == "0") source .enter.tcsh'
 alias popd 'if ("\!*" == "" && -o .exit.tcsh && -P22: .exit.tcsh == "0") source .exit.tcsh; ""popd \!*'
 alias cd 'if (-o .exit.tcsh && -P22: .exit.tcsh == "0") source .exit.tcsh; chdir \!*'
@@ -157,7 +171,7 @@ if ( -d ~/Mail/inbox/new/ ) then
 	set mail = ~/Mail/inbox/new/
 endif
 
-#set nobeep
+set nobeep
 set printexitvalue
 set promptchars = '%#'
 set prompt = "%T %B%n%b@%m %# %L"
@@ -362,6 +376,11 @@ complete unsetenv 'p/1/e/'
 complete where p/1/c/
 complete which p/*/c/
 
+# Automatically set a DISPLAY if appropriate
+if( $?REMOTEHOST && ! $?DISPLAY ) then
+    setenv DISPLAY ${REMOTEHOST}:0
+endif 
+
 # Host-specific completion bits
 switch ( $OSTYPE )
 case "darwin*":
@@ -386,8 +405,8 @@ unset noglob
 # update it periodically via:
 #
 # fetch -o ~/.cshrc https://github.com/sean-/flask-skeleton/raw/master/.cshrc
-if (-o .tcsh.site && -P22: .tcsh.site == "0") source .tcsh.site
-if (-o .tcsh.local && -P22: .tcsh.local == "0") source .tcsh.local
+if (-o .site.tcsh && -P22: .site.tcsh == "0") source .site.tcsh
+if (-o .local.tcsh && -P22: .local.tcsh == "0") source .local.tcsh
 
 end:
     onintr

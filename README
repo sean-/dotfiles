@@ -7,24 +7,24 @@ New tcsh(1) users, scroll down for a list of immediately useful benefits.
 Installation walk-through:
 
 One-off install:
-	% curl -o ~/.cshrc https://github.com/sean-/cshrc/raw/master/.cshrc
+        curl -o ~/.cshrc https://github.com/sean-/cshrc/raw/master/.cshrc
 
 To track changes:
-	% cd ~/src
-	% git clone git@github.com:sean-/cshrc.git
-	% cd cshrc
+        cd ~/src
+        % git clone git@github.com:sean-/cshrc.git
+        % cd cshrc
 
 To INSTALL:
-	% less .cshrc     # _Always_ review changes to your shell config
-	% mv .cshrc ~/    # Install the configured tcsh(1) hotness
-	% exec /bin/tcsh  # Start using tcsh(1)
-	% chsh /bin/tcsh  # Change your default shell once you feel comfortable
+        % less .cshrc     # _Always_ review changes to your shell config
+        % mv .cshrc ~/    # Install the configured tcsh(1) hotness
+        % exec /bin/tcsh  # Start using tcsh(1)
+        % chsh /bin/tcsh  # Change your default shell once you feel comfortable
 
 To UPGRADE:
-	% cd ~/src/cshrc
-	% git pull
-	% diff -u .cshrc ~/.cshrc
-	% cp .cshrc ~/.cshrc
+        % cd ~/src/cshrc
+        % git pull
+        % diff -u .cshrc ~/.cshrc
+        % cp .cshrc ~/.cshrc
 
 
 New tcsh users, the biggest set of "new features" are:
@@ -41,7 +41,17 @@ New tcsh users, the biggest set of "new features" are:
    # to search through your entire history for entries that begin with "ca",
    # specifically you'll see all three "cat /" commands (if not more,
    # depending on your history). You can increase the specificity and have it
-   # search for `cat /etc` vs `cat /tmp`, too. Very, very useful.
+   # search for `cat /etc` vs `cat /tmp`, too. Very, very useful. Another
+   # example:
+   #
+   # % git flow hotfix start better_uparrow_example
+   # % [ Do a series of commands and commits]
+   # % git f[up-arrow]
+   # % git flow hotfix start better_uparrow_example
+   # % [Use the back arrow to change start to finish]
+   # % git flow hotfix finish better_uparrow_example
+
+   The utility of this simple mechanism can't be understated.
 
 *) Tab-completion of ssh hosts. e.g.
 
@@ -65,3 +75,62 @@ New tcsh users, the biggest set of "new features" are:
    gcc(1), chown(1), ping(1), mtr(1), etc). See the 'complete' section for
    more examples or to learn how to extend argument completion for additional
    commands (feel free to suggest improvements).
+
+*) Per-directory settings. Ever want to set an environment variable
+   conditionally upon entering a directory (and possibly unset it when you
+   leave the directory)? Here's are two examples, one for python's virtualenv
+   and another for C++ development:
+
+   The python virtualenv example:
+
+        % cd ~/src/flask-skeleton
+        Activating the "flask-skeleton" virtual environment.
+        % which python
+        ~/src/flask-skeleton/bin/python
+
+   And here's the magic (from: https://github.com/sean-/flask-skeleton/blob/HEAD/.enter.tcsh):
+
+        % cat .enter.tcsh
+        # To turn off the virtualenv, type: deactivate
+
+        # Don't do anything if a virtual environment is already loaded
+        if ( ${?VIRTUAL_ENV} == "1" ) exit 0
+
+        printf 'Activating the "%s" virtual environment.\n' `basename $PWD`
+        source bin/activate.csh >& /dev/null
+
+    Suppose a project ships with a .enter.tcsh file and you want to override
+    the settings (from: https://github.com/sean-/Boost.Examples/blob/HEAD/.enter.tcsh):
+
+        # Use .tcsh.local to provide settings that are specific to your local environment
+        if (-o .enter.local.tcsh && -P22 .enter.local.tcsh == "0") source .enter.local.tcsh
+
+        if ( ${?BOOST_INCDIR} == "0" ) then
+            setenv BOOST_INCDIR $HOME/src/boost-trunk
+            printf '[INFO] Setting BOOST_INCDIR environment variable to %s\n' ${BOOST_INCDIR}
+        endif
+
+        if ( ${?BOOST_LIBDIR} == "0" ) then
+            setenv BOOST_LIBDIR $HOME/src/boost-trunk/lib
+            printf '[INFO] Setting BOOST_LIBDIR environment variable to %s\n' ${BOOST_LIBDIR}
+        endif
+
+    Then simply add the following to your .enter.local.tcsh:
+
+        if ( ${?BOOST_INCDIR} == "0" ) then
+            setenv BOOST_INCDIR $HOME/src/boost/obj/contrib-Darwin-i386/include
+            printf '[INFO] Setting BOOST_INCDIR environment variable to %s\n' ${BOOST_INCDIR}
+        endif
+
+        if ( ${?BOOST_LIBDIR} == "0" ) then
+            setenv BOOST_LIBDIR $HOME/src/boost/obj/contrib-Darwin-i386/lib
+            printf '[INFO] Setting BOOST_LIBDIR environment variable to %s\n' ${BOOST_LIBDIR}
+        endif
+
+        if ( ${?DYLD_FALLBACK_LIBRARY_PATH} == "0" ) then
+            setenv DYLD_FALLBACK_LIBRARY_PATH $HOME/src/boost/obj/contrib-Darwin-i386/lib
+            printf '[INFO] Setting DYLD_FALLBACK_LIBRARY_PATH environment variable to %s\n' ${DYLD_FALLBACK_LIBRARY_PATH}
+        endif
+
+    That way projects can ship with a .enter.tcsh file and you can still
+    override the shipped settings as you see fit.
