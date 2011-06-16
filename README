@@ -1,37 +1,46 @@
-A series of dot files for users. Included:
+# -*- mode: org; -*-
 
-  *) A .cshrc file
-  *) basic .emacs files
+* Manifest
+  A series of dot files for users. Included:
+
+  - useful .cshrc
+  - basic .emacs files
+  - .psqlrc file for psql(1)
+  - .digrc file for dig(1)
+  - .cvsrc file for cvs(1) (really?? who uses this POS anymore anyway?)
 
 
-tcsh:
+* tcsh
+  I use and recommend tcsh(1) for day-to-day use and then sh(1) for
+  scripting. Most bash(1) use bash(1) because they've never questioned the
+  use of the default shell shipped by Linux.
 
-I use and recommend tcsh(1) for day-to-day use and then sh(1) for
-scripting. Most bash(1) use bash(1) because they've never questioned the use
-of the default shell shipped by Linux.
+  New tcsh(1) users, scroll down for a list of immediately useful benefits.
 
-New tcsh(1) users, scroll down for a list of immediately useful benefits.
+** Installation walk-through:
+***  One-off install:
+     % curl -o ~/.cshrc https://raw.github.com/sean-/cshrc/master/.cshrc
+     % curl -o ~/.local.tcsh https://raw.github.com/sean-/cshrc/master/.local.tcsh.dist
+     % curl -o ~/.site.tcsh https://raw.github.com/sean-/cshrc/master/.site.tcsh.dist
+     % exec /bin/tcsh
 
-Installation walk-through:
+*** Poweruser install:
+**** Download Instructions:
+    % cd ~/src
+    % git clone git@github.com:sean-/cshrc.git
+    % cd cshrc
 
-One-off install:
-        % curl -o ~/.cshrc https://raw.github.com/sean-/cshrc/master/.cshrc
+**** INSTALL Instructions:
+     % less .cshrc     # _Always_ review changes to your shell config
+     % cp .cshrc ~/    # Install the configured tcsh(1) hotness
+     % cp .local.tcsh.dist ~/.local.tcsh # Install the local tcsh settings file
+     % cp .site.tcsh.dist ~/.site.tcsh   # Install the site tcsh settings file
+     % exec /bin/tcsh  # Start using tcsh(1)
+     % chsh /bin/tcsh  # Change your default shell once you feel comfortable
 
-To track changes:
-        % cd ~/src
-        % git clone git@github.com:sean-/cshrc.git
-        % cd cshrc
-
-To INSTALL:
-        % less .cshrc     # _Always_ review changes to your shell config
-        % mv .cshrc ~/    # Install the configured tcsh(1) hotness
-        % exec /bin/tcsh  # Start using tcsh(1)
-        % chsh /bin/tcsh  # Change your default shell once you feel comfortable
-
-To UPGRADE:
-        % cd ~/src/cshrc
-        % git pull
-        % diff -u .cshrc ~/.cshrc
-        # Merge whatever changes you've made and didn't put in a
-        # ~/.local.tcsh file
-        % cp .cshrc ~/.cshrc
+**** UPGRADE Instructions:
+    % cd ~/src/cshrc
+    % git pull
+    % diff -u .cshrc ~/.cshrc
+    Merge whatever changes you've made and didn't put in a ~/.local.tcsh file
+    % cp .cshrc ~/.cshrc

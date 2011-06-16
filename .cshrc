@@ -263,13 +263,14 @@ foreach lsext (${lsexts})
 end
 
 # tcsh(1)'s colors
-switch ($OSTYPE)
-case "linux":
-  # CentOS has a super old version of ls(1)
-  breaksw
+switch ( $OSTYPE )
+case "linux*":
+    # CentOS 5.5's tcsh rpm is so old, it doesn't support current
+    # LS_COLORS. What a waste.
+    breaksw
 default:
-  setenv LS_COLORS "${base_colors}"
-  breaksw
+    setenv LS_COLORS "${base_colors}"
+    breaksw
 endsw
 
 # ls(1)'s colors
@@ -390,7 +391,7 @@ complete which p/*/c/
 # Automatically set a DISPLAY if appropriate
 if( $?REMOTEHOST && ! $?DISPLAY ) then
     setenv DISPLAY ${REMOTEHOST}:0
-endif 
+endif
 
 # Host-specific completion bits
 switch ( $OSTYPE )
