@@ -134,9 +134,9 @@ alias kssh ssh -o GSSAPIAuthentication=yes -o GSSAPIDelegateCredentials=yes
 # The alias 'find.tcsh-sourced' is useful for identifying potential scripts
 # that will be automatically sourced.
 alias cwdcmd 'if (-o .enter.tcsh && -P22: .enter.tcsh == "0") source .enter.tcsh'
-alias popd 'if ("\!*" == "" && -o .exit.tcsh && -P22: .exit.tcsh == "0") source .exit.tcsh; ""popd \!*'
-alias cd 'if (-o .exit.tcsh && -P22: .exit.tcsh == "0") source .exit.tcsh; chdir \!*'
-alias pushd 'if (-o .exit.tcsh && -P22: .exit.tcsh == "0") source .exit.tcsh; ""pushd \!*'
+alias popd 'if ("\!*" == "" && -o .exit.tcsh && -P22: .exit.tcsh == "0") source .exit.tcsh; ""popd \!*; printf "\033]0;${USER}@${HOST}:${PWD}\007"'
+alias cd 'if (-o .exit.tcsh && -P22: .exit.tcsh == "0") source .exit.tcsh; chdir \!*; printf "\033]0;${USER}@${HOST}:${PWD}\007"'
+alias pushd 'if (-o .exit.tcsh && -P22: .exit.tcsh == "0") source .exit.tcsh; ""pushd \!*; printf "\033]0;${USER}@${HOST}:${PWD}\007"'
 
 
 
