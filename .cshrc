@@ -413,7 +413,7 @@ unset noglob
 # .tcsh.local for per-host settings. .cshrc is largely immutable because I
 # update it periodically via:
 #
-# fetch -o ~/.cshrc https://github.com/sean-/flask-skeleton/raw/master/.cshrc
+# fetch -o ~/.cshrc https://raw.github.com/sean-/cshrc/master/.cshrc
 if (-o .site.tcsh && -P22: .site.tcsh == "0") source .site.tcsh
 if (-o .local.tcsh && -P22: .local.tcsh == "0") source .local.tcsh
 
