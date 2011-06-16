@@ -8,7 +8,7 @@
 #
 # Updates available via:
 #
-# fetch -o ~/.cshrc.new https://github.com/sean-/cshrc/raw/master/.cshrc
+# fetch -o ~/.cshrc.new https://raw.github.com/sean-/cshrc/master/.cshrc
 # diff -u ~/.cshrc ~/.cshrc.new
 # mv -f ~/.cshrc.new ~/.cshrc
 

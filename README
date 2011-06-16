@@ -7,7 +7,7 @@ New tcsh(1) users, scroll down for a list of immediately useful benefits.
 Installation walk-through:
 
 One-off install:
-        curl -o ~/.cshrc https://github.com/sean-/cshrc/raw/master/.cshrc
+        curl -o ~/.cshrc https://raw.github.com/sean-/cshrc/master/.cshrc
 
 To track changes:
         cd ~/src
