@@ -1,0 +1,2 @@
+# A local, per-user .tcsh file that gets sourced after reading ~/.cshrc and
+# ~/.site.tcsh.
