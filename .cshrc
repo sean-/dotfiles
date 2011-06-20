@@ -78,12 +78,15 @@ case "FreeBSD*":
 	alias altq_see pfctl -vvsq
 	alias pflog tcpdump -X -vvv -n -e -ttt -i pflog0
 
-case "darwin*":
-	# FreeBSD's ls(1) uses the -G flag to enable color
+case "FreeBSD":
+case "darwin":
 	alias ll ls -lAG
 	breaksw
-default:
+case "linux":
 	alias ll ls -lA --color=auto
+	breaksw
+default:
+	alias ll ls -lA
 	breaksw
 endsw
 alias rm rm -i
