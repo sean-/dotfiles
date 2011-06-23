@@ -146,7 +146,7 @@ set autolist
 set color
 set colorcat
 set complete = 'enhance'
-set correct = 'all'
+set correct = 'cmd'
 set echo_stype = 'both'
 set filec
 set fignore = (\~ .bak .class CVS .o .pyc .svn)
