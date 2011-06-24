@@ -263,7 +263,15 @@ foreach lsext (${lsexts})
 end
 
 # tcsh(1)'s colors
-setenv LS_COLORS "${base_colors}"
+switch ($OSTYPE)
+case "linux":
+  # CentOS has a super old version of ls(1)
+  breaksw
+default:
+  setenv LS_COLORS "${base_colors}"
+  breaksw
+endsw
+
 # ls(1)'s colors
 setenv LSCOLORS 'exfxcxdxbxegedabagacad'
 unset base_colors
