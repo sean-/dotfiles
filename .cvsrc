@@ -1,0 +1,5 @@
+#update -dPA
+update  -dP
+rdiff   -u
+diff    -u
+cvs     -q -z9
