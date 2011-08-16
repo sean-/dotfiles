@@ -73,17 +73,19 @@ unset noglob
 
 # OS-specific aliases. Be sure to copy and port aliases on new OS types.
 switch ($OSTYPE)
-case "freebsd*":
-case "FreeBSD*":
+case "darwin":
+	alias ll ls -lAG
+	breaksw
+case "FreeBSD":
 	alias altq_see pfctl -vvsq
 	alias pflog tcpdump -X -vvv -n -e -ttt -i pflog0
-
-case "FreeBSD":
-case "darwin":
 	alias ll ls -lAG
 	breaksw
 case "linux":
 	alias ll ls -lA --color=auto
+	breaksw
+case "NetBSD":
+	alias ll ls -lA
 	breaksw
 default:
 	alias ll ls -lA
@@ -395,15 +397,14 @@ endif
 
 # Host-specific completion bits
 switch ( $OSTYPE )
-case "darwin*":
+case "darwin":
     complete sysctl     'p/1/`sysctl -a | cut -d : -f 1`/'
     complete top 'n/-o/(cpu pid command csw time threads ports \
 			mregion rprvt rshrd rsize vsize vprvt pgrp ppid \
 			state uid wq faults cow user msgsent msgrecv \
 			sysbsd sysmach pageins)/'
     breaksw
-case "freebsd*":
-case "FreeBSD*":
+case "FreeBSD":
     complete sysctl     'p/1/`sysctl -Na`/'
     complete top 'n/-o/(cpu size res time pri threads total read write fault vcsw ivcsw jid)/'
     breaksw
