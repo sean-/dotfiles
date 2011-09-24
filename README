@@ -27,7 +27,7 @@
 *** Poweruser install:
 **** Download Instructions:
     % cd ~/src
-    % git clone git@github.com:sean-/cshrc.git
+    % git clone https://github.com/sean-/cshrc.git
     % cd cshrc
 
 **** INSTALL Instructions:
