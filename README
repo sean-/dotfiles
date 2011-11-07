@@ -7,8 +7,6 @@
   - .psqlrc file for psql(1)
   - .digrc file for dig(1)
   - .cvsrc file for cvs(1) (really?? who uses this POS anymore anyway?)
-
-
 * tcsh
   I use and recommend tcsh(1) for day-to-day use and then sh(1) for
   scripting. Most bash(1) use bash(1) because they've never questioned the
