@@ -30,6 +30,8 @@ unset newpath
 
 # Skip to the end if we're not an interactive shell
 if (! $?prompt) goto end
+# When in an interactive session, print something useful for activity sniffers
+printf "\033]0;${USER}@${HOST}:${PWD}\007"
 
 ### Handle various interactive components
 
