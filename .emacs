@@ -148,7 +148,7 @@ nil (server-start))
 ;    (set-up-ffap-alist-for-project))
 	)
 
-(add-to-list 'load-path "~/.emacs.d/lisp/org-7.7/lisp")
+(add-to-list 'load-path "~/.emacs.d/lisp/org-7.8.03/lisp")
 (require 'org-install)
 (setq org-startup-truncated nil)
 (setq org-directory "~/Dropbox/TestOrg")
