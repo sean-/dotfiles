@@ -1,3 +1,6 @@
 \timing
 \set ON_ERROR_ROLLBACK on
 \pset pager off
+\set PROMPT1 '%/@%`hostname -s`%R%#%x '
+\set PROMPT2 '%/@%`hostname -s`%R%#%x '
+\set AUTOCOMMIT 'off'

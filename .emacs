@@ -148,7 +148,7 @@ nil (server-start))
 ;    (set-up-ffap-alist-for-project))
 	)
 
-(add-to-list 'load-path "~/.emacs.d/lisp/org-7.7/lisp")
+(add-to-list 'load-path "~/.emacs.d/lisp/org-7.8.03/lisp")
 (require 'org-install)
 (setq org-startup-truncated nil)
 (setq org-directory "~/Dropbox/TestOrg")
@@ -178,6 +178,9 @@ nil (server-start))
 (autoload 'php-mode "php-mode" "PHP mode." t)
 
 (autoload 'lua-mode "lua-mode" "Lua editing mode." t)
+(add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
+(add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
+
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
