@@ -15,13 +15,15 @@ nil (server-start))
 ;; BEGIN: marmalade
 (require 'package)
 (add-to-list 'package-archives
+    '("org" .
+      "http://orgmode.org/elpa/")
     '("marmalade" .
-      "http://marmalade-repo.org/packages/"))
+      "http://marmalade-repo.org/packages/")
+    )
 (package-initialize)
+;;(package-refresh-contents)
 
 ;; BEGIN: auto-complete.el
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "/Users/sean/.emacs.d/lisp//ac-dict")
 (ac-config-default)
 ;; END: auto-complete.el
 
@@ -39,25 +41,9 @@ nil (server-start))
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
 ;; end clang complete
 
-;; (add-to-list 'load-path "/opt/local/share/emacs/site-lisp/color-theme-6.6.0")
-;; (require 'color-theme)
-;; (require 'color-theme-solarized)
-;; (eval-after-load "color-theme"
-;; 	'(progn
-;; 		(color-theme-initialize)
-;;;; 		(color-theme-arjen)
-;;;; 		(color-theme-billw) ;; Very yellow
-;;;; 		(color-theme-clarity) ;; Pastel and orange
-;;;; 		(color-theme-dark-laptop)
-;;;; 		(color-theme-euphoria)
-;;;; 		(color-theme-hober) ;; Very colorful (my favorite?)
-;;;; 		(color-theme-midnight) ;; Very colorful (my favorite?)
-;;;; 		(color-theme-oswald) ;; Shades of green
-;;;; 		(color-theme-tty-dark) ;; Clean use of primary colors
-;;                (color-theme-solarized-dark) ;; Solarized dark
-;;;;              (color-theme-solarized-light) ;; Solarized light
-;;         ))
-(load-theme 'solarized-dark t)
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+(load-theme 'solarized t)
+(set-terminal-parameter nil 'background-mode 'dark)
 (setq solarized-termcolor 256)
 
 ;; All trailing whitespace needs to be highlighted so it can die.
@@ -195,19 +181,6 @@ nil (server-start))
       savehist-file "~/.emacs.d/savehist") ; Keep this out of ~.
 (savehist-mode t)                          ; Turn savehist-mode on.
 
-;; I always compile my .emacs, saving about two seconds startup time.  But that
-;; only helps if the .emacs.elc is newer than the .emacs.  So, compile .emacs
-;; if it's not.
-(defun bcm-autocompile ()
-  "Compile self in ~/.emacs.d/build"
-  (interactive)
-  (require 'bytecomp)
-  (if (string= (buffer-file-name)
-               (expand-file-name
-                (concat default-directory "~/.emacs.d/build")))
-      (byte-compile-file (buffer-file-name))))
-(add-hook 'after-save-hook 'bcm-autocompile)
-
 (defun my-start-scripting-mode (file-extension hash-bang)
   ;; All scripting languages are programming languages
   (start-programing-mode)
@@ -229,6 +202,9 @@ nil (server-start))
             'executable-make-buffer-file-executable-if-script-p
             nil t))
 
+(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+(add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
+(add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
 
 (setq gofmt-command "goimports")
 (require 'go-mode-autoloads)
@@ -237,6 +213,11 @@ nil (server-start))
           (lambda ()
             (flyspell-prog-mode)
             ))
+(require 'go-eldoc)
+(add-hook 'go-mode-hook 'go-eldoc-setup)
+(set-face-attribute 'eldoc-highlight-function-argument nil
+                    :underline t :foreground "green"
+                                        :weight 'bold)
 
 (defun my-common-c-ish-startup ()
   (interactive)
