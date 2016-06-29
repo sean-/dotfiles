@@ -1,0 +1,3 @@
+#!/bin/sh
+
+source-highlight -fesc -oSTDOUT "$1" 2>/dev/null
