@@ -12,21 +12,53 @@ nil (server-start))
 (setq-default line-number-mode t)
 (setq-default column-number-mode t)
 
- (add-to-list 'load-path "/opt/local/share/emacs/site-lisp/color-theme-6.6.0")
- (require 'color-theme)
- (eval-after-load "color-theme"
- 	'(progn
- 		(color-theme-initialize)
-;; 		(color-theme-arjen)
-;; 		(color-theme-billw) ;; Very yellow
-;; 		(color-theme-clarity) ;; Pastel and orange
-;; 		(color-theme-dark-laptop)
-;; 		(color-theme-euphoria)
- 		(color-theme-hober) ;; Very colorful (my favorite?)
-;; 		(color-theme-midnight) ;; Very colorful (my favorite?)
-;; 		(color-theme-oswald) ;; Shades of green
-;; 		(color-theme-tty-dark) ;; Clean use of primary colors
-         ))
+;; BEGIN: marmalade
+(require 'package)
+(add-to-list 'package-archives
+    '("marmalade" .
+      "http://marmalade-repo.org/packages/"))
+(package-initialize)
+
+;; BEGIN: auto-complete.el
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "/Users/sean/.emacs.d/lisp//ac-dict")
+(ac-config-default)
+;; END: auto-complete.el
+
+;; begin clang complete
+(require 'auto-complete-clang)
+(setq clang-completion-suppress-error 't)
+
+(defun my-c-mode-common-hook()
+  (setq ac-auto-start nil)
+  (setq ac-expand-on-auto-complete nil)
+  (setq ac-quick-help-delay 0.3)
+  (define-key c-mode-base-map (kbd "M-/") 'ac-complete-clang)
+)
+
+(add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
+;; end clang complete
+
+;; (add-to-list 'load-path "/opt/local/share/emacs/site-lisp/color-theme-6.6.0")
+;; (require 'color-theme)
+;; (require 'color-theme-solarized)
+;; (eval-after-load "color-theme"
+;; 	'(progn
+;; 		(color-theme-initialize)
+;;;; 		(color-theme-arjen)
+;;;; 		(color-theme-billw) ;; Very yellow
+;;;; 		(color-theme-clarity) ;; Pastel and orange
+;;;; 		(color-theme-dark-laptop)
+;;;; 		(color-theme-euphoria)
+;;;; 		(color-theme-hober) ;; Very colorful (my favorite?)
+;;;; 		(color-theme-midnight) ;; Very colorful (my favorite?)
+;;;; 		(color-theme-oswald) ;; Shades of green
+;;;; 		(color-theme-tty-dark) ;; Clean use of primary colors
+;;                (color-theme-solarized-dark) ;; Solarized dark
+;;;;              (color-theme-solarized-light) ;; Solarized light
+;;         ))
+(load-theme 'solarized-dark t)
+(setq solarized-termcolor 256)
 
 ;; All trailing whitespace needs to be highlighted so it can die.
 (setq-default show-trailing-whitespace t)
@@ -36,16 +68,46 @@ nil (server-start))
 (setq c-basic-indent 2)
 ; (setq tab-width 4)
 
+(setq-default display-time-24hr-format t)
 (display-time)
 
-;; Draw tabs with the same color as trailing whitespace  
-(add-hook 'font-lock-mode-hook  
-  (lambda ()  
-    (font-lock-add-keywords  
-      nil  
-      '(("\t" 0 'trailing-whitespace prepend)))))
+(global-font-lock-mode t)
+(setq font-lock-maximum-decoration t)
 
+;; Draw tabs with the same color as trailing whitespace
+(add-hook 'font-lock-mode-hook
+  (lambda ()
+    (font-lock-add-keywords
+      nil
+      '(("\t" 0 'trailing-whitespace prepend)))))
+(add-hook 'c++-mode-hook
+      '(lambda()
+        ;; In theory, we could place some regexes into `c-mode-common-hook'. But note that their
+        ;; evaluation order matters.
+        (font-lock-add-keywords
+         nil '(;; complete some fundamental keywords
+           ("\\<\\(void\\|unsigned\\|signed\\|char\\|short\\|bool\\|int\\|long\\|float\\|double\\)\\>" . font-lock-keyword-face)
+           ;; add the new C++11 keywords
+           ("\\<\\(alignof\\|alignas\\|constexpr\\|decltype\\|noexcept\\|nullptr\\|static_assert\\|thread_local\\|override\\|final\\)\\>" . font-lock-keyword-face)
+           ("\\<\\(char[0-9]+_t\\)\\>" . font-lock-keyword-face)
+           ;; PREPROCESSOR_CONSTANT
+           ("\\<[A-Z]*_[A-Z_]+\\>" . font-lock-constant-face)
+           ;; hexadecimal numbers
+           ("\\<0[xX][0-9A-Fa-f]+\\>" . font-lock-constant-face)
+           ;; integer/float/scientific numbers
+           ("\\<[\\-+]*[0-9]*\\.?[0-9]+\\([ulUL]+\\|[eE][\\-+]?[0-9]+\\)?\\>" . font-lock-constant-face)
+           ;; user-defined types (customizable)
+           ("\\<[A-Za-z_]+[A-Za-z_0-9]*_\\(type\\|ptr\\)\\>" . font-lock-type-face)
+           ;; some explicit typenames (customizable)
+           ("\\<\\(xstring\\|xchar\\)\\>" . font-lock-type-face)
+           ))
+        ) t)
+
+;;(require 'linum)
+(require 'lineno)
 (prefer-coding-system 'utf-8)
+
+(require 'yaml-mode)
 
 (setq auto-mode-alist
       (append '(("\\.[Cc][Xx][Xx]$" . c++-mode)
@@ -56,15 +118,21 @@ nil (server-start))
                 ("\\.mak$" . makefile-mode)
                 ("\\.conf$" . conf-mode)
                 ("\\.lua$" . lua-mode)
-                (\\.d[i]?$ . d-mode)
                 ("Doxyfile.tmpl$" . makefile-mode)
                 ("Doxyfile$" . makefile-mode)
                 ("\\.php$" . php-mode)
                 ("\\.rb$" . ruby-mode)
                 ("\\.y$" . bison-mode)
+                ("\\.y[a]?ml$" . yaml-mode)
                 ("\\.yy$" . bison-mode)
+                ("\\.json$" . js2-mode)
                 ("\\.l$" . flex-mode)
                 ("\\.ll$" . flex-mode)
+                ("\\.zsh$" . sh-mode)
+                ("\\README$" . text-mode)
+                ("\\CHANGES$" . text-mode)
+                ("\\INSTALL$" . text-mode)
+                ("\\TODO$" . text-mode)
                 ) auto-mode-alist))
 
 (setq interpreter-mode-alist
@@ -72,7 +140,7 @@ nil (server-start))
               interpreter-mode-alist))
 
 (setq user-full-name "Sean Chittenden"
-	  user-mail-address "sean@stackjet.com"
+	  user-mail-address "sean@chittenden.org"
 
       enable-local-variables :safe
       inhibit-startup-message t
@@ -103,9 +171,42 @@ nil (server-start))
 
 ;  (project-root-fetch)
 
+  (lineno-minor-mode)
   ;; Highlight matching parenthesis (and other bracket likes)
   (show-paren-mode t))
 
+;; Text files supposedly end in new lines, or they should.
+(setq require-final-newline t)
+
+;; Prevent windows from getting too small.
+(setq window-min-height 3)
+
+;; Ignore case of file completion
+(setq read-file-name-completion-ignore-case t)
+
+;; Completion ignores filenames ending in any string in this list.
+(setq completion-ignored-extensions
+  '(".o" ".elc" "~" ".bak" ))
+
+;; savehist-mode
+;; Mode requires customizations set prior to enabling.
+(setq savehist-additional-variables
+      '(search-ring regexp-search-ring)    ; Save search entries.
+      savehist-file "~/.emacs.d/savehist") ; Keep this out of ~.
+(savehist-mode t)                          ; Turn savehist-mode on.
+
+;; I always compile my .emacs, saving about two seconds startup time.  But that
+;; only helps if the .emacs.elc is newer than the .emacs.  So, compile .emacs
+;; if it's not.
+(defun bcm-autocompile ()
+  "Compile self in ~/.emacs.d/build"
+  (interactive)
+  (require 'bytecomp)
+  (if (string= (buffer-file-name)
+               (expand-file-name
+                (concat default-directory "~/.emacs.d/build")))
+      (byte-compile-file (buffer-file-name))))
+(add-hook 'after-save-hook 'bcm-autocompile)
 
 (defun my-start-scripting-mode (file-extension hash-bang)
   ;; All scripting languages are programming languages
@@ -129,14 +230,22 @@ nil (server-start))
             nil t))
 
 
+(setq gofmt-command "goimports")
+(require 'go-mode-autoloads)
+(add-hook 'before-save-hook #'gofmt-before-save)
+(add-hook 'go-mode-hook
+          (lambda ()
+            (flyspell-prog-mode)
+            ))
+
 (defun my-common-c-ish-startup ()
   (interactive)
   (start-programing-mode)
 
   (require 'google-c-style)
   (google-set-c-style)
-
-  (auto-revert-mode t)
+  (add-hook 'c-mode-common-hook 'google-set-c-style)
+  (add-hook 'c-mode-common-hook 'google-make-newline-indent)
 
   ;; Load and start up filladapt
 ;  (require 'filladapt)
@@ -149,7 +258,7 @@ nil (server-start))
 ;    (set-up-ffap-alist-for-project))
 	)
 
-(add-to-list 'load-path "~/.emacs.d/lisp/org-7.8.03/lisp")
+(add-to-list 'load-path "~/.emacs.d/lisp/org-7.7/lisp")
 (require 'org-install)
 (setq org-startup-truncated nil)
 (setq org-directory "~/Dropbox/TestOrg")
@@ -195,3 +304,48 @@ nil (server-start))
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  )
+
+;; Use file<pathname> instead of file<n> to uniquify buffer names.
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
+
+;; server-mode: This starts up a server automatically, allowing emacsclient to
+;; connect to a single Emacs instance.  If a server already exists, it is
+;; killed.
+(server-force-delete)
+(server-start)
+
+;; Replace echo area startup message
+;;(setq yow-file "~/.emacs.d/yow_file_zippy_pinhead_quotes.txt.gz" )
+;;(run-with-timer 1 nil #'yow)
+
+;; Enable auto-complete module
+(add-to-list 'load-path "~/.emacs.d/lisp")    ; This may not be appeared if you have already added.
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+(ac-config-default)
+
+;; Enable go-code's autocomplete
+(require 'go-autocomplete)
+(require 'auto-complete-config)
+(ac-config-default)
+
+;; Enable go-errcheck
+(require 'go-errcheck)
+
+;; Enable go-rename
+(require 'go-rename)
+;; go get -u golang.org/x/tools/cmd/guru
+(load-file "$GOPATH/src/golang.org/x/tools/cmd/guru/go-guru.el")
+
+;; Enable golint
+(add-to-list 'load-path (concat (getenv "GOPATH")  "/src/github.com/golang/lint/misc/emacs"))
+(require 'golint)
+
+;; Enable markdown-mode
+(autoload 'markdown-mode "markdown-mode"
+  "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
+(global-auto-revert-mode t)
