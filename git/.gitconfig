@@ -11,8 +11,8 @@
 	stat = status
 [gc]
 	auto = 1
-[core]
-	excludesfile = $HOME/.git_global_ignore
+#[core]
+#	excludesfile = $HOME/.git_global_ignore
 [push]
 	default = simple
 [url "git@github.com:"]
