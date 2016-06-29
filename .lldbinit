@@ -1,0 +1,10 @@
+# Learn lldb the hard way(tm)
+command unalias bt
+
+settings set target.process.disable-stdio true
+
+# Backtrace every time we stop
+target stop-hook add
+  thread backtrace
+  disassemble --pc
+DONE
