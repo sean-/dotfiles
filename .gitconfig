@@ -1,0 +1,25 @@
+[user]
+	email = sean@chittenden.org
+	name = Sean Chittenden
+	useconfigonly = true
+	signingkey = 6C2E5E16
+[alias]
+	ci = commit
+	di = diff
+	outgoing = log origin/master..HEAD
+	st = status
+	stat = status
+[gc]
+	auto = 1
+[core]
+	excludesfile = $HOME/.git_global_ignore
+[push]
+	default = simple
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+[commit]
+	gpgSign = true
+[gpg]
+	program = /usr/local/bin/gpg
+[diff]
+	algorithm = histogram
