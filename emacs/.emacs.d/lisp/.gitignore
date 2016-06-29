@@ -1,0 +1,4 @@
+*.elc
+go-autocomplete.el
+go-errcheck.el
+go-guru.el
