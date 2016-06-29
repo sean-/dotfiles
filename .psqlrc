@@ -1,6 +1,24 @@
-\timing
-\set ON_ERROR_ROLLBACK on
-\pset pager off
+\set QUIET 1
+-- \set AUTOCOMMIT 'off'
+-- \set ON_ERROR_ROLLBACK on
+-- \set ON_ERROR_STOP on
+-- \set ECHO_HIDDEN on
+\set COMP_KEYWORD_CASE upper
+-- \set FETCH_COUNT 1000
+\set HISTFILE ~/.psql_history- :DBNAME
+\set HISTSIZE 9999
+\set HISTCONTROL ignoreboth
+\set IGNOREEOF 3
 \set PROMPT1 '%/@%`hostname -s`%R%#%x '
 \set PROMPT2 '%/@%`hostname -s`%R%#%x '
-\set AUTOCOMMIT 'off'
+\set VERBOSITY verbose
+\setenv LESS -imx4F
+\setenv PAGER less
+\pset null '(null)'
+\pset format wrapped
+-- \pset pager off
+\timing
+\x auto
+\set waits '(SELECT pg_stat_activity.pid, pg_stat_activity.query, pg_stat_activity.waiting, now() - pg_stat_activity.query_start AS "totaltime", pg_stat_activity.backend_start FROM pg_stat_activity WHERE pg_stat_activity.state != \'idle\'::text AND pg_stat_activity.waiting = true)'
+\set locks '(SELECT l.pid,l.mode,a.query FROM pg_locks AS l, pg_stat_activity AS a WHERE l.granted=false AND l.locktype=\'transactionid\' AND l.pid=a.pid ORDER BY l.pid,l.granted)'
+\unset QUIET
