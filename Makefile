@@ -1,4 +1,4 @@
-DEFAULT_PACKAGES= \
+PACKAGES?= \
 	PostgreSQL \
 	dig \
 	emacs \
@@ -11,7 +11,7 @@ DEFAULT_PACKAGES= \
 all:: stow
 
 stow::
-	stow -v -R -d $(HOME)/src/dotfiles -t $(HOME) $(DEFAULT_PACKAGES)
+	stow -v -R -d $(HOME)/src/dotfiles -t $(HOME) $(PACKAGES)
 
 unstow::
-	stow -v -D -d $(HOME)/src/dotfiles -t $(HOME) $(DEFAULT_PACKAGES)
+	stow -v -D -d $(HOME)/src/dotfiles -t $(HOME) $(PACKAGES)
