@@ -9,6 +9,9 @@ nil (server-start))
 
 (setq byte-compile-warnings nil)
 
+;; If something edits a buffer while we're editing it, revert to whatever is on the filesystem.
+(global-auto-revert-mode t)
+
 (setq-default line-number-mode t)
 (setq-default column-number-mode t)
 
@@ -272,6 +275,12 @@ nil (server-start))
 (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
 (add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
 
+;; When programming, highlight long lines
+(require 'highlight-beyond-fill-column)
+(add-hook 'prog-mode-hook 'highlight-beyond-fill-column)
+(custom-set-faces '(highlight-beyond-fill-column-face
+                    ((t (:foreground "red" )))))
+
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
@@ -329,4 +338,9 @@ nil (server-start))
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
-(global-auto-revert-mode t)
+;; Enable: yafolding
+(require 'yafolding)
+(add-hook 'prog-mode-hook
+          (lambda () (yafolding-mode)))
+(global-set-key (kbd "C-\\") 'yafolding-toggle-element)
+(global-set-key (kbd "M-\\") 'yafolding-toggle-all)
