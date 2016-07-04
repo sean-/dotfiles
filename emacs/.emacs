@@ -31,7 +31,10 @@ nil (server-start))
 (ac-config-default)
 ;; END: auto-complete.el
 
-;; begin clang complete
+;; Enable graphviz mode
+(load-file "graphviz-dot-mode.el")
+
+;; BEGIN: clang complete
 (require 'auto-complete-clang)
 (setq clang-completion-suppress-error 't)
 
@@ -108,6 +111,7 @@ nil (server-start))
                 ("\\.mak$" . makefile-mode)
                 ("\\.conf$" . conf-mode)
                 ("\\.lua$" . lua-mode)
+                ("\\.dot$" . graphviz-dot-mode)
                 ("Doxyfile.tmpl$" . makefile-mode)
                 ("Doxyfile$" . makefile-mode)
                 ("\\.php$" . php-mode)

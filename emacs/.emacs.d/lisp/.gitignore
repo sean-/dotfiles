@@ -2,5 +2,6 @@
 go-autocomplete.el
 go-errcheck.el
 go-guru.el
+graphviz-dot-mode.el
 highlight-beyond-fill-column.el
 yafolding.el

@@ -9,6 +9,7 @@ update:: \
 	go-errcheck.el \
 	go-guru.el \
 	go-mode.el \
+	graphviz-dot-mode.el \
 	highlight-beyond-fill-column.el \
 	lineno \
 	markdown-mode \
@@ -85,6 +86,10 @@ go-mode.el::
 		--eval "(package-initialize)" \
 		--eval "(package-refresh-contents)" \
 		--eval "(package-install 'go-mode)"
+
+# https://raw.githubusercontent.com/ncrohn/emacs/master/vendor/emacs-goodies-el/graphviz-dot-mode.el
+graphviz-dot-mode.el::
+	fetch 'https://raw.githubusercontent.com/ncrohn/emacs/master/vendor/emacs-goodies-el/graphviz-dot-mode.el'
 
 # https://github.com/ncrohn/emacs/tree/master/vendor/emacs-goodies-el
 highlight-beyond-fill-column.el::
