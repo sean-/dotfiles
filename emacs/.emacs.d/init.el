@@ -1,6 +1,12 @@
 ;;; init.el --- user init file
-(defvar my-load-path (expand-file-name "~/.emacs.d/lisp"))
-(add-to-list 'load-path my-load-path)
+(let ((default-directory (concat user-emacs-directory
+        (convert-standard-filename "lisp/"))))
+  (normal-top-level-add-to-load-path '("."))
+  (normal-top-level-add-subdirs-to-load-path))
+(add-to-list 'load-path (concat (getenv "GOPATH") "/src/github.com/golang/lint/misc/emacs/"))
+(add-to-list 'load-path (concat (getenv "GOPATH") "/src/golang.org/x/tools/cmd/guru/"))
+(add-to-list 'load-path (concat (getenv "GOPATH") "/src/golang.org/x/tools/refactor/rename/"))
+(add-to-list 'load-path (concat (getenv "GOPATH") "/src/github.com/dougm/goflymake/"))
 
 ;; BEGIN: marmalade
 (require 'package)
@@ -230,16 +236,24 @@ nil (server-start))
 
 (setq gofmt-command "goimports")
 (require 'go-mode-autoloads)
-(add-hook 'before-save-hook #'gofmt-before-save)
 (add-hook 'go-mode-hook
           (lambda ()
+            (add-hook 'before-save-hook #'gofmt-before-save)
+            (require 'go-autocomplete)
+            (require 'go-eldoc)
+            (require 'go-errcheck)
+            (require 'go-flymake)
+            ;;(require 'go-flycheck)
+            (require 'go-guru)
+            (require 'go-rename)
+            (require 'golint)
+            (go-eldoc-setup)
             (flyspell-prog-mode)
-            ))
-(require 'go-eldoc)
-(add-hook 'go-mode-hook 'go-eldoc-setup)
-(set-face-attribute 'eldoc-highlight-function-argument nil
-                    :underline t :foreground "green"
-                                        :weight 'bold)
+            (set-face-attribute 'eldoc-highlight-function-argument nil
+                                :underline t :foreground "green"
+                                :weight 'bold)
+            )
+          )
 
 (require 'google-c-style)
 (defun my-common-c-ish-startup ()
@@ -326,17 +340,6 @@ nil (server-start))
 ;; Replace echo area startup message
 ;;(setq yow-file "~/.emacs.d/yow_file_zippy_pinhead_quotes.txt.gz" )
 ;;(run-with-timer 1 nil #'yow)
-
-;; Enable go-code's autocomplete
-(require 'go-autocomplete)
-
-;; Enable go-errcheck
-(require 'go-errcheck)
-
-;; Enable go-rename
-(require 'go-rename)
-;; go get -u golang.org/x/tools/cmd/guru
-(load-file "$GOPATH/src/golang.org/x/tools/cmd/guru/go-guru.el")
 
 ;; Enable golint
 (add-to-list 'load-path (concat (getenv "GOPATH")  "/src/github.com/golang/lint/misc/emacs"))

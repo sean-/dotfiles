@@ -1,23 +1,33 @@
 all::
 
 update:: \
+	auto-compile.el \
 	auto-complete.el \
-	color-theme-solarized.el \
 	discover.el \
 	filladapt.el \
-	google-c-style.el \
 	go-autocomplete.el \
 	go-eldoc.el \
 	go-errcheck.el \
 	go-guru.el \
 	go-mode.el \
+	google-c-style.el \
 	graphviz-dot-mode.el \
 	highlight-beyond-fill-column.el \
 	lineno \
 	markdown-mode \
 	org-mode \
 	protobuf-mode.el \
+	solarized-definitions.el \
 	yafolding.el
+
+# https://github.com/tarsius/auto-compile
+auto-compile.el::
+	emacs -Q --batch -f toggle-debug-on-error \
+		--eval "(require 'package)" \
+		--eval "(setq package-archives '((\"melpa\" .  \"https://melpa.org/packages/\")))" \
+		--eval "(package-initialize)" \
+		--eval "(package-refresh-contents)" \
+		--eval "(package-install 'auto-compile)"
 
 # https://github.com/auto-complete/auto-complete
 auto-complete.el::
@@ -29,7 +39,7 @@ auto-complete.el::
 		--eval "(package-install 'auto-complete)"
 
 # Source: https://github.com/sellout/emacs-color-theme-solarized
-color-theme-solarized.el::
+solarized-definitions.el::
 	fetch 'https://raw.githubusercontent.com/sellout/emacs-color-theme-solarized/master/solarized-definitions.el'
 	fetch -o ../themes/solarized-theme.el 'https://raw.githubusercontent.com/sellout/emacs-color-theme-solarized/master/solarized-theme.el'
 	emacs -Q -batch -L . \
@@ -62,6 +72,14 @@ discover.el::
 filladapt.el::
 	fetch 'http://www.wonderworks.com/download/filladapt.el'
 
+flycheck.el::
+	emacs -Q --batch -f toggle-debug-on-error \
+		--eval "(require 'package)" \
+		--eval "(setq package-archives '((\"melpa\" .  \"https://melpa.org/packages/\")))" \
+		--eval "(package-initialize)" \
+		--eval "(package-refresh-contents)" \
+		--eval "(package-install 'flycheck)"
+
 # https://github.com/google/styleguide
 google-c-style.el::
 	fetch 'https://raw.githubusercontent.com/google/styleguide/gh-pages/google-c-style.el'
@@ -93,8 +111,7 @@ go-errcheck.el:: go-errcheck
 go-guru::
 	go get -u golang.org/x/tools/cmd/guru
 
-go-guru.el:: go-mode.el go-guru
-	fetch 'https://raw.githubusercontent.com/golang/tools/master/cmd/guru/go-guru.el'
+go-guru.el:: go-guru go-mode.el
 	cd $(GOPATH)/src/golang.org/x/tools/cmd/guru && \
 	emacs -Q -batch -L $(HOME)/.emacs.d/lisp -L . \
 			--eval "(require 'package)" \
@@ -103,8 +120,27 @@ go-guru.el:: go-mode.el go-guru
 			-f batch-byte-compile \
 			go-guru.el
 
+goimport::
+	go get -u golang.org/x/tools/cmd/goimports
+
+golint::
+	go get -u github.com/golang/lint/golint
+
+goflymake:: flycheck.el
+	go get -u github.com/dougm/goflymake
+
+# /Users/sean/go/src/github.com/golang/lint/misc/emacs/golint.el
+golint.el:: golint
+	cd $(GOPATH)/src/github.com/golang/lint/misc/emacs/ && \
+	emacs -Q -batch -L $(HOME)/.emacs.d/lisp -L . \
+			--eval "(require 'package)" \
+			--eval "(package-initialize)" \
+			--eval "(require 'go-mode)" \
+			-f batch-byte-compile \
+			golint.el
+
 # https://github.com/dominikh/go-mode.el
-go-mode.el::
+go-mode.el:: goimport goflymake
 	emacs -Q --batch -f toggle-debug-on-error \
 		--eval "(require 'package)" \
 		--eval "(setq package-archives '((\"melpa\" .  \"https://melpa.org/packages/\")))" \
