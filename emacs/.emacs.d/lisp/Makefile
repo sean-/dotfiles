@@ -4,6 +4,7 @@ update:: \
 	auto-complete.el \
 	color-theme-solarized.el \
 	discover.el \
+	filladapt.el \
 	go-autocomplete.el \
 	go-eldoc.el \
 	go-errcheck.el \
@@ -48,6 +49,10 @@ discover.el::
 		--eval "(package-initialize)" \
 		--eval "(package-refresh-contents)" \
 		--eval "(package-install 'discover)"
+
+# https://www.emacswiki.org/emacs/FillAdapt
+filladapt.el::
+	fetch 'http://www.wonderworks.com/download/filladapt.el'
 
 # https://github.com/nsf/gocode
 gocode::

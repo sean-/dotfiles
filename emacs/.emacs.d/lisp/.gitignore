@@ -1,4 +1,5 @@
 *.elc
+filladapt.el
 go-autocomplete.el
 go-errcheck.el
 go-guru.el

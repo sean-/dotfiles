@@ -34,6 +34,12 @@ nil (server-start))
 ;; Enable graphviz mode
 (load-file "graphviz-dot-mode.el")
 
+;; BEGIN: filladapt
+(require 'filladapt)
+(setq-default filladapt-mode t)
+(add-hook 'text-mode-hook 'turn-on-filladapt-mode)
+;;(add-hook 'c-mode-hook 'turn-off-filladapt-mode)
+
 ;; BEGIN: clang complete
 (require 'auto-complete-clang)
 (setq clang-completion-suppress-error 't)
@@ -235,7 +241,7 @@ nil (server-start))
   (add-hook 'c-mode-common-hook 'google-set-c-style)
   (add-hook 'c-mode-common-hook 'google-make-newline-indent)
 
-  ;; Load and start up filladapt
+;; Load and start up filladapt
 ;  (require 'filladapt)
 ;  (c-setup-filladapt)
 ;  (filladapt-mode)
@@ -254,6 +260,7 @@ nil (server-start))
 (setq org-agenda-files (quote ("~/Dropbox/TestOrg/agenda.org")))
 (setq org-mobile-inbox-for-pull "~/Dropbox/TestOrg/inbox.org")
 (setq org-default-notes-file (expand-file-name "~/Dropbox/TestOrg/index.org"))
+(add-hook 'org-mode-hook 'turn-off-filladapt-mode)
 
 ; (setq org-todo-keywords
 ;	'((type "TODO(t) "STARTED(s)" "WAITING(w)" "APP(a)" "|" "CANCELLED(c)" "DEFERRED(e)" "DONE(d)")
