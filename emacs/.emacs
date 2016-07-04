@@ -32,7 +32,7 @@ nil (server-start))
 ;; END: auto-complete.el
 
 ;; Enable graphviz mode
-(load-file "graphviz-dot-mode.el")
+(autoload 'graphviz-dot-mode "graphviz-dot-mode" "Graphviz DOT mode." t)
 
 ;; BEGIN: filladapt
 (require 'filladapt)
