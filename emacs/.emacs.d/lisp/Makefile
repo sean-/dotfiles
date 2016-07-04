@@ -15,6 +15,7 @@ update:: \
 	lineno \
 	markdown-mode \
 	org-mode \
+	protobuf-mode.el \
 	yafolding.el
 
 # https://github.com/auto-complete/auto-complete
@@ -121,6 +122,10 @@ org-mode::
 		--eval "(package-initialize)" \
 		--eval "(package-refresh-contents)" \
 		--eval "(package-install 'org-plus-contrib)"
+
+# https://github.com/google/protobuf
+protobuf-mode.el::
+	fetch 'https://raw.githubusercontent.com/google/protobuf/master/editors/protobuf-mode.el'
 
 # https://github.com/zenozeng/yafolding.el
 yafolding.el::

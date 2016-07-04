@@ -5,4 +5,5 @@ go-errcheck.el
 go-guru.el
 graphviz-dot-mode.el
 highlight-beyond-fill-column.el
+protobuf-mode.el
 yafolding.el
