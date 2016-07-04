@@ -2,3 +2,5 @@
 go-autocomplete.el
 go-errcheck.el
 go-guru.el
+highlight-beyond-fill-column.el
+yafolding.el

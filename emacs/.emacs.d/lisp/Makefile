@@ -3,14 +3,17 @@ all::
 update:: \
 	auto-complete.el \
 	color-theme-solarized.el \
+	discover.el \
 	go-autocomplete.el \
 	go-eldoc.el \
 	go-errcheck.el \
 	go-guru.el \
 	go-mode.el \
+	highlight-beyond-fill-column.el \
 	lineno \
 	markdown-mode \
-	org-mode
+	org-mode \
+	yafolding.el
 
 # https://github.com/auto-complete/auto-complete
 auto-complete.el::
@@ -35,6 +38,15 @@ dash.el::
 		--eval "(package-initialize)" \
 		--eval "(package-refresh-contents)" \
 		--eval "(package-install 'dash)"
+
+# https://github.com/mickeynp/discover.el
+discover.el::
+	emacs -Q --batch -f toggle-debug-on-error \
+		--eval "(require 'package)" \
+		--eval "(setq package-archives '((\"melpa\" .  \"https://melpa.org/packages/\")))" \
+		--eval "(package-initialize)" \
+		--eval "(package-refresh-contents)" \
+		--eval "(package-install 'discover)"
 
 # https://github.com/nsf/gocode
 gocode::
@@ -74,6 +86,10 @@ go-mode.el::
 		--eval "(package-refresh-contents)" \
 		--eval "(package-install 'go-mode)"
 
+# https://github.com/ncrohn/emacs/tree/master/vendor/emacs-goodies-el
+highlight-beyond-fill-column.el::
+	fetch 'https://raw.githubusercontent.com/ncrohn/emacs/master/vendor/emacs-goodies-el/highlight-beyond-fill-column.el'
+
 # https://www.emacswiki.org/emacs/lineno.el
 lineno::
 	fetch 'https://www.emacswiki.org/emacs/download/lineno.el'
@@ -95,3 +111,7 @@ org-mode::
 		--eval "(package-initialize)" \
 		--eval "(package-refresh-contents)" \
 		--eval "(package-install 'org-plus-contrib)"
+
+# https://github.com/zenozeng/yafolding.el
+yafolding.el::
+	fetch 'https://raw.githubusercontent.com/zenozeng/yafolding.el/master/yafolding.el'
