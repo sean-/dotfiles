@@ -93,8 +93,15 @@ go-errcheck.el:: go-errcheck
 go-guru::
 	go get -u golang.org/x/tools/cmd/guru
 
-go-guru.el:: go-mode
+go-guru.el:: go-mode.el go-guru
 	fetch 'https://raw.githubusercontent.com/golang/tools/master/cmd/guru/go-guru.el'
+	cd $(GOPATH)/src/golang.org/x/tools/cmd/guru && \
+	emacs -Q -batch -L $(HOME)/.emacs.d/lisp -L . \
+			--eval "(require 'package)" \
+			--eval "(package-initialize)" \
+			--eval "(require 'go-mode)" \
+			-f batch-byte-compile \
+			go-guru.el
 
 # https://github.com/dominikh/go-mode.el
 go-mode.el::
