@@ -12,6 +12,7 @@ nil (server-start))
 ;; If something edits a buffer while we're editing it, revert to whatever is on the filesystem.
 (global-auto-revert-mode t)
 
+(setq-default fill-column 80)
 (setq-default line-number-mode t)
 (setq-default column-number-mode t)
 
@@ -136,7 +137,6 @@ nil (server-start))
       default-major-mode 'text-mode
       require-final-newline t
 ;      default-tab-width 4
-      default-fill-column 77
       truncate-partial-width-windows nil
       frame-title-format (concat user-login-name "@" system-name))
 
