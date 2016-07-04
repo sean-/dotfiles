@@ -3,6 +3,7 @@ filladapt.el
 go-autocomplete.el
 go-errcheck.el
 go-guru.el
+google-c-style.el
 graphviz-dot-mode.el
 highlight-beyond-fill-column.el
 protobuf-mode.el

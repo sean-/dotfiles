@@ -5,6 +5,7 @@ update:: \
 	color-theme-solarized.el \
 	discover.el \
 	filladapt.el \
+	google-c-style.el \
 	go-autocomplete.el \
 	go-eldoc.el \
 	go-errcheck.el \
@@ -60,6 +61,11 @@ discover.el::
 # https://www.emacswiki.org/emacs/FillAdapt
 filladapt.el::
 	fetch 'http://www.wonderworks.com/download/filladapt.el'
+
+# https://github.com/google/styleguide
+google-c-style.el::
+	fetch 'https://raw.githubusercontent.com/google/styleguide/gh-pages/google-c-style.el'
+	emacs -Q -batch -L . -f batch-byte-compile $<
 
 # https://github.com/nsf/gocode
 gocode::
