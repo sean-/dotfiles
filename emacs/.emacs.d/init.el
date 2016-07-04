@@ -1,20 +1,6 @@
-(if (file-exists-p
- (concat (getenv "TMPDIR") "emacs"
-         (number-to-string
-          (user-real-uid)) "/server"))
-nil (server-start))
-
+;;; init.el --- user init file
 (defvar my-load-path (expand-file-name "~/.emacs.d/lisp"))
 (add-to-list 'load-path my-load-path)
-
-(setq byte-compile-warnings nil)
-
-;; If something edits a buffer while we're editing it, revert to whatever is on the filesystem.
-(global-auto-revert-mode t)
-
-(setq-default fill-column 80)
-(setq-default line-number-mode t)
-(setq-default column-number-mode t)
 
 ;; BEGIN: marmalade
 (require 'package)
@@ -27,7 +13,30 @@ nil (server-start))
 (package-initialize)
 ;;(package-refresh-contents)
 
+(setq load-prefer-newer t)
+(package-initialize)
+(require 'auto-compile)
+(auto-compile-on-load-mode)
+(auto-compile-on-save-mode)
+;;(setq auto-compile-display-buffer nil)
+;;(setq auto-compile-mode-line-counter t)
+
+(if (file-exists-p
+ (concat (getenv "TMPDIR") "emacs"
+         (number-to-string
+          (user-real-uid)) "/server"))
+nil (server-start))
+
+;; If something edits a buffer while we're editing it, revert to whatever is on the filesystem.
+(global-auto-revert-mode t)
+
+(setq-default fill-column 80)
+(setq-default line-number-mode t)
+(setq-default column-number-mode t)
+
 ;; BEGIN: auto-complete.el
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
 ;; END: auto-complete.el
 
@@ -145,7 +154,6 @@ nil (server-start))
 
       enable-local-variables :safe
       inhibit-startup-message t
-      default-major-mode 'text-mode
       require-final-newline t
 ;      default-tab-width 4
       truncate-partial-width-windows nil
@@ -204,14 +212,14 @@ nil (server-start))
   (local-set-key "\C-csb" 'insert-script-big-header)
 
   ;; Build a startup template for this mode.
-  (my-start-autoinsert)
-  (tempo-define-template (concat file-extension "startup")
-                         (list (concat hash-bang "\n\n")))
-  (push (cons (concat "\\." file-extension "$")
-              (intern (concat "tempo-template-" file-extension "startup")))
-        auto-insert-alist)
+  ;; (my-start-autoinsert)
+  ;; (tempo-define-template (concat file-extension "startup")
+  ;;                        (list (concat hash-bang "\n\n")))
+  ;; (push (cons (concat "\\." file-extension "$")
+  ;;             (intern (concat "tempo-template-" file-extension "startup")))
+  ;;       auto-insert-alist)
 
-   Make the script executable on save
+  ;; Make the script executable on save
   (add-hook 'after-save-hook
             'executable-make-buffer-file-executable-if-script-p
             nil t))
@@ -233,12 +241,11 @@ nil (server-start))
                     :underline t :foreground "green"
                                         :weight 'bold)
 
+(require 'google-c-style)
 (defun my-common-c-ish-startup ()
   (interactive)
   (start-programing-mode)
 
-  (require 'google-c-style)
-  (google-set-c-style)
   (add-hook 'c-mode-common-hook 'google-set-c-style)
   (add-hook 'c-mode-common-hook 'google-make-newline-indent)
 
@@ -253,7 +260,6 @@ nil (server-start))
 ;    (set-up-ffap-alist-for-project))
   )
 
-(add-to-list 'load-path "~/.emacs.d/lisp/org-7.7/lisp")
 (require 'org-install)
 (setq org-startup-truncated nil)
 (setq org-directory "~/Dropbox/TestOrg")
@@ -321,16 +327,8 @@ nil (server-start))
 ;;(setq yow-file "~/.emacs.d/yow_file_zippy_pinhead_quotes.txt.gz" )
 ;;(run-with-timer 1 nil #'yow)
 
-;; Enable auto-complete module
-(add-to-list 'load-path "~/.emacs.d/lisp")    ; This may not be appeared if you have already added.
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
-(ac-config-default)
-
 ;; Enable go-code's autocomplete
 (require 'go-autocomplete)
-(require 'auto-complete-config)
-(ac-config-default)
 
 ;; Enable go-errcheck
 (require 'go-errcheck)

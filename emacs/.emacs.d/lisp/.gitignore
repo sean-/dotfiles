@@ -6,4 +6,5 @@ go-guru.el
 graphviz-dot-mode.el
 highlight-beyond-fill-column.el
 protobuf-mode.el
+solarized-definitions.el
 yafolding.el

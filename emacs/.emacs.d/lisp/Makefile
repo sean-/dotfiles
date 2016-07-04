@@ -29,9 +29,15 @@ auto-complete.el::
 
 # Source: https://github.com/sellout/emacs-color-theme-solarized
 color-theme-solarized.el::
-	fetch 'https://raw.githubusercontent.com/sellout/emacs-color-theme-solarized/master/solarized-theme.el'
-	fetch 'https://raw.githubusercontent.com/sellout/emacs-color-theme-solarized/master/color-theme-solarized.el'
 	fetch 'https://raw.githubusercontent.com/sellout/emacs-color-theme-solarized/master/solarized-definitions.el'
+	fetch -o ../themes/solarized-theme.el 'https://raw.githubusercontent.com/sellout/emacs-color-theme-solarized/master/solarized-theme.el'
+	emacs -Q -batch -L . \
+			-f batch-byte-compile \
+			solarized-definitions.el
+	emacs -Q -batch -L . \
+			-f batch-byte-compile \
+			../themes/solarized-theme.el
+
 
 # https://github.com/magnars/dash.el
 dash.el::
