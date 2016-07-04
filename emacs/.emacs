@@ -251,7 +251,7 @@ nil (server-start))
 ;    (local-set-key '[f4] 'erg-project-root-gdb)
 ;    (local-set-key '[f5] 'erg-project-root-compile)
 ;    (set-up-ffap-alist-for-project))
-	)
+  )
 
 (add-to-list 'load-path "~/.emacs.d/lisp/org-7.7/lisp")
 (require 'org-install)
@@ -354,5 +354,7 @@ nil (server-start))
 (require 'yafolding)
 (add-hook 'prog-mode-hook
           (lambda () (yafolding-mode)))
+;; The yafolding toggle keybindings are used common enough that I give them a
+;; prominent keybdining.
 (global-set-key (kbd "C-\\") 'yafolding-toggle-element)
 (global-set-key (kbd "M-\\") 'yafolding-toggle-all)
