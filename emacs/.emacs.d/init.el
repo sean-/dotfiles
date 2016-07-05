@@ -156,8 +156,7 @@ nil (server-start))
               interpreter-mode-alist))
 
 (setq user-full-name "Sean Chittenden"
-	  user-mail-address "sean@chittenden.org"
-
+      user-mail-address "sean@chittenden.org"
       enable-local-variables :safe
       inhibit-startup-message t
       require-final-newline t
@@ -170,8 +169,8 @@ nil (server-start))
 (fset 'yes-or-no-p 'y-or-n-p) ;; Make all yes-or-no questions as y-or-n
 
 (if (file-accessible-directory-p (expand-file-name "~/.Trash"))
-	(add-to-list 'backup-directory-alist
-				 (cons "." (expand-file-name "~/.Trash/emacs-backups/"))))
+    (add-to-list 'backup-directory-alist
+                 (cons "." (expand-file-name "~/.Trash/emacs-backups/"))))
 
 (defun start-programing-mode()
   (interactive)
@@ -231,6 +230,7 @@ nil (server-start))
             nil t))
 
 (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+
 (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
 
