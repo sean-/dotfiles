@@ -12,6 +12,7 @@ update:: \
 	go-mode.el \
 	google-c-style.el \
 	graphviz-dot-mode.el \
+	hcl-mode.el \
 	highlight-beyond-fill-column.el \
 	lineno \
 	markdown-mode \
@@ -151,6 +152,15 @@ go-mode.el:: goimport goflymake
 # https://raw.githubusercontent.com/ncrohn/emacs/master/vendor/emacs-goodies-el/graphviz-dot-mode.el
 graphviz-dot-mode.el::
 	fetch 'https://raw.githubusercontent.com/ncrohn/emacs/master/vendor/emacs-goodies-el/graphviz-dot-mode.el'
+
+# https://github.com/syohex/emacs-hcl-mode
+hcl-mode.el::
+	emacs -Q --batch -f toggle-debug-on-error \
+		--eval "(require 'package)" \
+		--eval "(setq package-archives '((\"melpa\" .  \"https://melpa.org/packages/\")))" \
+		--eval "(package-initialize)" \
+		--eval "(package-refresh-contents)" \
+		--eval "(package-install 'hcl-mode)"
 
 # https://github.com/ncrohn/emacs/tree/master/vendor/emacs-goodies-el
 highlight-beyond-fill-column.el::
