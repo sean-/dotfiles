@@ -19,6 +19,7 @@ update:: \
 	org-mode \
 	protobuf-mode.el \
 	solarized-definitions.el \
+	terraform-mode.el \
 	yafolding.el
 
 # https://github.com/tarsius/auto-compile
@@ -191,6 +192,14 @@ org-mode::
 # https://github.com/google/protobuf
 protobuf-mode.el::
 	fetch 'https://raw.githubusercontent.com/google/protobuf/master/editors/protobuf-mode.el'
+
+terraform-mode.el::
+	emacs -Q --batch -f toggle-debug-on-error \
+		--eval "(require 'package)" \
+		--eval "(setq package-archives '((\"melpa\" .  \"https://melpa.org/packages/\")))" \
+		--eval "(package-initialize)" \
+		--eval "(package-refresh-contents)" \
+		--eval "(package-install 'terraform-mode)"
 
 # https://github.com/zenozeng/yafolding.el
 yafolding.el::
