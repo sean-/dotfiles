@@ -1,0 +1,23 @@
+account user@example.org
+host host.example.com
+port 587
+from "user@example.org"
+tls on
+tls_starttls on
+tls_trust_file ~/.mail/certs/nss-root.crt
+auth on
+user "user@example.org"
+passwordeval "gpg2 -q --for-your-eyes-only --no-tty -d ~/.mail/passwords/user@example.gpg"
+logfile ~/.mail/msmtp.log
+
+account user@example.com
+host smtp.gmail.com
+port 587
+from "user@example.com"
+tls on
+tls_starttls on
+tls_trust_file ~/.mail/certs/nss-root.crt
+auth on
+user "user@example.com"
+passwordeval "gpg2 -q --for-your-eyes-only --no-tty -d ~/.mail/passwords/user@example.gpg"
+logfile ~/.mail/msmtp.log
