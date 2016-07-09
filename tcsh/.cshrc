@@ -14,6 +14,8 @@
 
 # UTF-8 or go home.
 setenv LC_TYPE en_US.utf-8
+setenv GPGKEY 6C2E5E16
+setenv GPG_TTY `/usr/bin/tty`
 
 onintr -
 
