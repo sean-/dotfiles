@@ -17,7 +17,7 @@ update:: \
 	graphviz-dot-mode.el \
 	hcl-mode.el \
 	highlight-beyond-fill-column.el \
-	lineno \
+	lineno.el \
 	markdown-mode \
 	org-mode \
 	protobuf-mode.el \
@@ -195,8 +195,9 @@ highlight-beyond-fill-column.el::
 	fetch 'https://raw.githubusercontent.com/ncrohn/emacs/master/vendor/emacs-goodies-el/highlight-beyond-fill-column.el'
 
 # https://www.emacswiki.org/emacs/lineno.el
-lineno::
+lineno.el::
 	fetch 'https://www.emacswiki.org/emacs/download/lineno.el'
+	emacs -Q -batch -L . -f batch-byte-compile $@
 
 # https://github.com/defunkt/markdown-mode
 markdown-mode::
