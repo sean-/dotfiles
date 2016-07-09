@@ -19,6 +19,10 @@ setenv LC_TYPE en_US.utf-8
 setenv GPGKEY 6C2E5E16
 setenv GPG_TTY `/usr/bin/tty`
 
+# Go
+setenv GOPATH $HOME/go
+setenv GOROOT_BOOTSTRAP $HOME/go1.6
+
 onintr -
 
 ### Set various path bits
