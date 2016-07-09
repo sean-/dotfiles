@@ -6,20 +6,26 @@
 [alias]
 	ci = commit
 	di = diff
-	outgoing = log origin/master..HEAD
+	incoming = '!git remote update -p; git log ..@{u}'
+	outgoing = log origin/master..
 	st = status
 	stat = status
+	staged = diff --cached
+[color]
+	ui = auto
+[commit]
+	gpgSign = true
+[core]
+	excludesfile = $HOME/.gitignore_ignore
+[diff]
+	algorithm = histogram
 [gc]
 	auto = 1
-#[core]
-#	excludesfile = $HOME/.git_global_ignore
+[gpg]
+	program = /usr/local/bin/gpg
+[mergetool]
+	keepBackup = true
 [push]
 	default = simple
 [url "git@github.com:"]
 	insteadOf = https://github.com/
-[commit]
-	gpgSign = true
-[gpg]
-	program = /usr/local/bin/gpg
-[diff]
-	algorithm = histogram
