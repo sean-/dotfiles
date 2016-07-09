@@ -12,6 +12,7 @@ update:: \
 	go-errcheck.el \
 	go-guru.el \
 	go-mode.el \
+	go-rename.el \
 	google-c-style.el \
 	graphviz-dot-mode.el \
 	hcl-mode.el \
@@ -142,7 +143,7 @@ goimport::
 golint::
 	go get -u github.com/golang/lint/golint
 
-goflymake:: flycheck.el
+goflymake::
 	go get -u github.com/dougm/goflymake
 
 # /Users/sean/go/src/github.com/golang/lint/misc/emacs/golint.el
@@ -163,6 +164,18 @@ go-mode.el:: goimport godef goflymake
 		--eval "(package-initialize)" \
 		--eval "(package-refresh-contents)" \
 		--eval "(package-install 'go-mode)"
+
+gorename::
+	go get -u golang.org/x/tools/refactor/rename
+
+go-rename.el:: gorename
+	cd $(GOPATH)/src/golang.org/x/tools/refactor/rename && \
+	emacs -Q -batch -L $(HOME)/.emacs.d/lisp -L . \
+			--eval "(require 'package)" \
+			--eval "(package-initialize)" \
+			--eval "(require 'go-mode)" \
+			-f batch-byte-compile \
+			go-rename.el
 
 # https://raw.githubusercontent.com/ncrohn/emacs/master/vendor/emacs-goodies-el/graphviz-dot-mode.el
 graphviz-dot-mode.el::
