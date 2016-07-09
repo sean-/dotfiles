@@ -219,6 +219,8 @@ org-mode::
 # https://github.com/google/protobuf
 protobuf-mode.el::
 	fetch 'https://raw.githubusercontent.com/google/protobuf/master/editors/protobuf-mode.el'
+	patch -V none -p0 < protobuf-mode.el.patch
+	emacs -Q -batch -L . -f batch-byte-compile $@
 
 terraform-mode.el::
 	emacs -Q --batch -f toggle-debug-on-error \
