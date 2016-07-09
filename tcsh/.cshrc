@@ -14,6 +14,8 @@
 
 # UTF-8 or go home.
 setenv LC_TYPE en_US.utf-8
+
+# PGP/GPG
 setenv GPGKEY 6C2E5E16
 setenv GPG_TTY `/usr/bin/tty`
 
@@ -34,6 +36,7 @@ unset newpath
 if (! $?prompt) goto end
 
 ### Handle various interactive components
+setenv GIT_EDITOR emacs
 
 ### Begin the autohost completion thang
 set noglob

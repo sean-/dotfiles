@@ -13,17 +13,31 @@
 	staged = diff --cached
 [color]
 	ui = auto
+[core]
+	compression = 9
+	looseCompression = 9
+	sharedRepository = "0640"
 [commit]
 	gpgSign = true
+#	template = ~/.config/git/commit-template
+	verbose = true
 [diff]
 	algorithm = histogram
+        compactionHeuristic = true
+	renames = true
 [gc]
 	auto = 1
+[grep]
+        lineNumber = true
 [gpg]
 	program = /usr/local/bin/gpg
 [mergetool]
 	keepBackup = true
+[pack]
+	compression = 9
 [push]
 	default = simple
+[status]
+	displayCommentPrefix = true
 [url "git@github.com:"]
 	insteadOf = https://github.com/
