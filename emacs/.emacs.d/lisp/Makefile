@@ -49,10 +49,7 @@ solarized-definitions.el::
 	fetch -o ../themes/solarized-theme.el 'https://raw.githubusercontent.com/sellout/emacs-color-theme-solarized/master/solarized-theme.el'
 	emacs -Q -batch -L . \
 			-f batch-byte-compile \
-			solarized-definitions.el
-	emacs -Q -batch -L . \
-			-f batch-byte-compile \
-			../themes/solarized-theme.el
+			../themes/solarized-theme.el $@
 
 
 # https://github.com/magnars/dash.el
@@ -76,6 +73,7 @@ discover.el::
 # https://www.emacswiki.org/emacs/FillAdapt
 filladapt.el::
 	fetch 'http://www.wonderworks.com/download/filladapt.el'
+	emacs -Q -batch -L . -f batch-byte-compile $@
 
 flycheck.el::
 	emacs -Q --batch -f toggle-debug-on-error \
@@ -97,7 +95,7 @@ git-gutter+.el::
 # https://github.com/google/styleguide
 google-c-style.el::
 	fetch 'https://raw.githubusercontent.com/google/styleguide/gh-pages/google-c-style.el'
-	emacs -Q -batch -L . -f batch-byte-compile $<
+	emacs -Q -batch -L . -f batch-byte-compile $@
 
 # https://github.com/nsf/gocode
 gocode::
@@ -105,6 +103,11 @@ gocode::
 
 go-autocomplete.el:: auto-complete.el go-mode.el gocode
 	fetch 'https://raw.githubusercontent.com/nsf/gocode/master/emacs/go-autocomplete.el'
+	emacs -Q -batch -L . \
+		--eval "(require 'package)" \
+		--eval "(package-initialize)" \
+		--eval "(require 'go-mode)" \
+		-f batch-byte-compile $@
 
 go-eldoc.el::
 	emacs -Q --batch -f toggle-debug-on-error \
@@ -120,6 +123,7 @@ go-errcheck::
 
 go-errcheck.el:: go-errcheck
 	fetch 'https://raw.githubusercontent.com/dominikh/go-errcheck.el/master/go-errcheck.el'
+	emacs -Q -batch -L . -f batch-byte-compile $@
 
 # https://godoc.org/golang.org/x/tools/cmd/guru
 go-guru::
@@ -128,11 +132,10 @@ go-guru::
 go-guru.el:: go-guru go-mode.el
 	cd $(GOPATH)/src/golang.org/x/tools/cmd/guru && \
 	emacs -Q -batch -L $(HOME)/.emacs.d/lisp -L . \
-			--eval "(require 'package)" \
-			--eval "(package-initialize)" \
-			--eval "(require 'go-mode)" \
-			-f batch-byte-compile \
-			go-guru.el
+		--eval "(require 'package)" \
+		--eval "(package-initialize)" \
+		--eval "(require 'go-mode)" \
+		-f batch-byte-compile $@
 
 godef::
 	go get -u github.com/rogpeppe/godef
@@ -153,8 +156,7 @@ golint.el:: golint
 			--eval "(require 'package)" \
 			--eval "(package-initialize)" \
 			--eval "(require 'go-mode)" \
-			-f batch-byte-compile \
-			golint.el
+			-f batch-byte-compile $@
 
 # https://github.com/dominikh/go-mode.el
 go-mode.el:: goimport godef goflymake
@@ -174,12 +176,12 @@ go-rename.el:: gorename
 			--eval "(require 'package)" \
 			--eval "(package-initialize)" \
 			--eval "(require 'go-mode)" \
-			-f batch-byte-compile \
-			go-rename.el
+			-f batch-byte-compile $@
 
 # https://raw.githubusercontent.com/ncrohn/emacs/master/vendor/emacs-goodies-el/graphviz-dot-mode.el
 graphviz-dot-mode.el::
 	fetch 'https://raw.githubusercontent.com/ncrohn/emacs/master/vendor/emacs-goodies-el/graphviz-dot-mode.el'
+	emacs -Q -batch -L . -f batch-byte-compile $@
 
 # https://github.com/syohex/emacs-hcl-mode
 hcl-mode.el::
@@ -193,6 +195,7 @@ hcl-mode.el::
 # https://github.com/ncrohn/emacs/tree/master/vendor/emacs-goodies-el
 highlight-beyond-fill-column.el::
 	fetch 'https://raw.githubusercontent.com/ncrohn/emacs/master/vendor/emacs-goodies-el/highlight-beyond-fill-column.el'
+	emacs -Q -batch -L . -f batch-byte-compile $@
 
 # https://www.emacswiki.org/emacs/lineno.el
 lineno.el::
@@ -234,3 +237,4 @@ terraform-mode.el::
 # https://github.com/zenozeng/yafolding.el
 yafolding.el::
 	fetch 'https://raw.githubusercontent.com/zenozeng/yafolding.el/master/yafolding.el'
+	emacs -Q -batch -L . -f batch-byte-compile $@
