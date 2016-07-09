@@ -5,6 +5,7 @@ update:: \
 	auto-complete.el \
 	discover.el \
 	filladapt.el \
+	golint.el \
 	go-autocomplete.el \
 	go-eldoc.el \
 	go-errcheck.el \
