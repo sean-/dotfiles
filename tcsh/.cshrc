@@ -160,7 +160,7 @@ set fignore = (\~ .bak .class CVS .o .pyc .svn)
 set histdup = 'erase'
 set histfile = ~/.history
 set history = 10000
-set implicitcd
+unset implicitcd
 set listjobs = long
 
 # I like having a temp directory that I can stash things in knowing that its
