@@ -5,6 +5,7 @@ update:: \
 	auto-complete.el \
 	discover.el \
 	filladapt.el \
+	git-gutter+.el \
 	golint.el \
 	go-autocomplete.el \
 	go-eldoc.el \
@@ -82,6 +83,15 @@ flycheck.el::
 		--eval "(package-initialize)" \
 		--eval "(package-refresh-contents)" \
 		--eval "(package-install 'flycheck)"
+
+# https://github.com/nonsequitur/git-gutter-plus
+git-gutter+.el::
+	emacs -Q --batch -f toggle-debug-on-error \
+		--eval "(require 'package)" \
+		--eval "(setq package-archives '((\"melpa\" .  \"https://melpa.org/packages/\")))" \
+		--eval "(package-initialize)" \
+		--eval "(package-refresh-contents)" \
+		--eval "(package-install 'git-gutter+)"
 
 # https://github.com/google/styleguide
 google-c-style.el::
