@@ -123,6 +123,9 @@ go-guru.el:: go-guru go-mode.el
 			-f batch-byte-compile \
 			go-guru.el
 
+godef::
+	go get -u github.com/rogpeppe/godef
+
 goimport::
 	go get -u golang.org/x/tools/cmd/goimports
 
@@ -143,7 +146,7 @@ golint.el:: golint
 			golint.el
 
 # https://github.com/dominikh/go-mode.el
-go-mode.el:: goimport goflymake
+go-mode.el:: goimport godef goflymake
 	emacs -Q --batch -f toggle-debug-on-error \
 		--eval "(require 'package)" \
 		--eval "(setq package-archives '((\"melpa\" .  \"https://melpa.org/packages/\")))" \
