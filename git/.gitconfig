@@ -15,8 +15,6 @@
 	ui = auto
 [commit]
 	gpgSign = true
-[core]
-	excludesfile = $HOME/.gitignore_ignore
 [diff]
 	algorithm = histogram
 [gc]
