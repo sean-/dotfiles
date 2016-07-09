@@ -150,7 +150,7 @@ goflymake::
 	go get -u github.com/dougm/goflymake
 
 # /Users/sean/go/src/github.com/golang/lint/misc/emacs/golint.el
-golint.el:: golint
+golint.el:: golint go-mode.el
 	cd $(GOPATH)/src/github.com/golang/lint/misc/emacs/ && \
 	emacs -Q -batch -L $(HOME)/.emacs.d/lisp -L . \
 			--eval "(require 'package)" \
