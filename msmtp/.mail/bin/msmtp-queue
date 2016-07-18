@@ -1,4 +1,6 @@
-#!/usr/bin/env bash
+#!/bin/sh --
+
+set -e
 
 ##--------------------------------------------------------------
 ##
@@ -27,4 +29,4 @@
 ## change the below line to be
 ##   exec /path/to/msmtpq --q-mgmt
 
-exec msmtpq --q-mgmt "$1"
+exec $HOME/.mail/bin/msmtpq --q-mgmt "$1"
