@@ -6,13 +6,13 @@ update:: \
 	discover.el \
 	filladapt.el \
 	git-gutter+.el \
-	golint.el \
 	go-autocomplete.el \
 	go-eldoc.el \
 	go-errcheck.el \
 	go-guru.el \
 	go-mode.el \
 	go-rename.el \
+	golint.el \
 	google-c-style.el \
 	graphviz-dot-mode.el \
 	hcl-mode.el \
