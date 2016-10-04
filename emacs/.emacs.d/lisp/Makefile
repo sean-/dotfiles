@@ -17,6 +17,7 @@ update:: \
 	graphviz-dot-mode.el \
 	hcl-mode.el \
 	highlight-beyond-fill-column.el \
+	js2-mode.el \
 	lineno.el \
 	markdown-mode \
 	org-mode \
@@ -196,6 +197,14 @@ hcl-mode.el::
 highlight-beyond-fill-column.el::
 	fetch 'https://raw.githubusercontent.com/ncrohn/emacs/master/vendor/emacs-goodies-el/highlight-beyond-fill-column.el'
 	emacs -Q -batch -L . -f batch-byte-compile $@
+
+js2-mode.el::
+	emacs -Q --batch -f toggle-debug-on-error \
+		--eval "(require 'package)" \
+		--eval "(setq package-archives '((\"melpa\" .  \"https://melpa.org/packages/\")))" \
+		--eval "(package-initialize)" \
+		--eval "(package-refresh-contents)" \
+		--eval "(package-install 'js2-mode)"
 
 # https://www.emacswiki.org/emacs/lineno.el
 lineno.el::
