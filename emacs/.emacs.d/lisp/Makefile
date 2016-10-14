@@ -50,7 +50,7 @@ auto-complete.el::
 
 # Source: https://github.com/sellout/emacs-color-theme-solarized
 solarized-definitions.el::
-	$(FETCH) $(FETCH_ARG) $< 'https://raw.githubusercontent.com/sellout/emacs-color-theme-solarized/master/solarized-definitions.el'
+	$(FETCH) $(FETCH_ARG) $@ 'https://raw.githubusercontent.com/sellout/emacs-color-theme-solarized/master/solarized-definitions.el'
 	$(FETCH) $(FETCH_ARG) ../themes/solarized-theme.el 'https://raw.githubusercontent.com/sellout/emacs-color-theme-solarized/master/solarized-theme.el'
 	emacs -Q -batch -L . \
 			-f batch-byte-compile \
@@ -77,7 +77,7 @@ discover.el::
 
 # https://www.emacswiki.org/emacs/FillAdapt
 filladapt.el::
-	$(FETCH) $(FETCH_ARG) $< 'http://www.wonderworks.com/download/filladapt.el'
+	$(FETCH) $(FETCH_ARG) $@ 'http://www.wonderworks.com/download/filladapt.el'
 	emacs -Q -batch -L . -f batch-byte-compile $@
 
 flycheck.el::
@@ -99,7 +99,7 @@ git-gutter+.el::
 
 # https://github.com/google/styleguide
 google-c-style.el::
-	$(FETCH) $(FETCH_ARG) $< 'https://raw.githubusercontent.com/google/styleguide/gh-pages/google-c-style.el'
+	$(FETCH) $(FETCH_ARG) $@ 'https://raw.githubusercontent.com/google/styleguide/gh-pages/google-c-style.el'
 	emacs -Q -batch -L . -f batch-byte-compile $@
 
 # https://github.com/nsf/gocode
@@ -107,7 +107,7 @@ gocode::
 	go get -u github.com/nsf/gocode
 
 go-autocomplete.el:: auto-complete.el go-mode.el gocode
-	$(FETCH) $(FETCH_ARG) $< 'https://raw.githubusercontent.com/nsf/gocode/master/emacs/go-autocomplete.el'
+	$(FETCH) $(FETCH_ARG) $@ 'https://raw.githubusercontent.com/nsf/gocode/master/emacs/go-autocomplete.el'
 	emacs -Q -batch -L . \
 		--eval "(require 'package)" \
 		--eval "(package-initialize)" \
@@ -127,7 +127,7 @@ go-errcheck::
 	go get -u github.com/kisielk/errcheck
 
 go-errcheck.el:: go-errcheck
-	$(FETCH) $(FETCH_ARG) $< 'https://raw.githubusercontent.com/dominikh/go-errcheck.el/master/go-errcheck.el'
+	$(FETCH) $(FETCH_ARG) $@ 'https://raw.githubusercontent.com/dominikh/go-errcheck.el/master/go-errcheck.el'
 	emacs -Q -batch -L . -f batch-byte-compile $@
 
 # https://godoc.org/golang.org/x/tools/cmd/guru
@@ -185,7 +185,7 @@ go-rename.el:: gorename
 
 # https://raw.githubusercontent.com/ncrohn/emacs/master/vendor/emacs-goodies-el/graphviz-dot-mode.el
 graphviz-dot-mode.el::
-	$(FETCH) $(FETCH_ARG) $< 'https://raw.githubusercontent.com/ncrohn/emacs/master/vendor/emacs-goodies-el/graphviz-dot-mode.el'
+	$(FETCH) $(FETCH_ARG) $@ 'https://raw.githubusercontent.com/ncrohn/emacs/master/vendor/emacs-goodies-el/graphviz-dot-mode.el'
 	emacs -Q -batch -L . -f batch-byte-compile $@
 
 # https://github.com/syohex/emacs-hcl-mode
@@ -199,7 +199,7 @@ hcl-mode.el::
 
 # https://github.com/ncrohn/emacs/tree/master/vendor/emacs-goodies-el
 highlight-beyond-fill-column.el::
-	$(FETCH) $(FETCH_ARG) $< 'https://raw.githubusercontent.com/ncrohn/emacs/master/vendor/emacs-goodies-el/highlight-beyond-fill-column.el'
+	$(FETCH) $(FETCH_ARG) $@ 'https://raw.githubusercontent.com/ncrohn/emacs/master/vendor/emacs-goodies-el/highlight-beyond-fill-column.el'
 	emacs -Q -batch -L . -f batch-byte-compile $@
 
 js2-mode.el::
@@ -212,7 +212,7 @@ js2-mode.el::
 
 # https://www.emacswiki.org/emacs/lineno.el
 lineno.el::
-	$(FETCH) $(FETCH_ARG) $< 'https://www.emacswiki.org/emacs/download/lineno.el'
+	$(FETCH) $(FETCH_ARG) $@ 'https://www.emacswiki.org/emacs/download/lineno.el'
 	emacs -Q -batch -L . -f batch-byte-compile $@
 
 # https://github.com/defunkt/markdown-mode
@@ -235,7 +235,7 @@ org-mode::
 
 # https://github.com/google/protobuf
 protobuf-mode.el::
-	$(FETCH) $(FETCH_ARG) $< 'https://raw.githubusercontent.com/google/protobuf/master/editors/protobuf-mode.el'
+	$(FETCH) $(FETCH_ARG) $@ 'https://raw.githubusercontent.com/google/protobuf/master/editors/protobuf-mode.el'
 	patch -V none -p0 < protobuf-mode.el.patch
 	emacs -Q -batch -L . -f batch-byte-compile $@
 
@@ -249,5 +249,5 @@ terraform-mode.el::
 
 # https://github.com/zenozeng/yafolding.el
 yafolding.el::
-	$(FETCH) $(FETCH_ARG) $< 'https://raw.githubusercontent.com/zenozeng/yafolding.el/master/yafolding.el'
+	$(FETCH) $(FETCH_ARG) $@ 'https://raw.githubusercontent.com/zenozeng/yafolding.el/master/yafolding.el'
 	emacs -Q -batch -L . -f batch-byte-compile $@
